@@ -1,0 +1,70 @@
+"""Tests for src/patient_brain.py — scenario -> Realtime instructions (Phase 02)."""
+import pytest
+
+import patient_brain
+import scenario_loader
+
+CALLER = "+13334445555"
+
+
+@pytest.fixture
+def scenarios():
+    return scenario_loader.load_scenarios("scenarios/scenarios.json")
+
+
+def instructions_for(scenarios, call_id):
+    card = scenario_loader.get_scenario(scenarios, call_id)
+    return patient_brain.build_instructions(card, caller_number=CALLER)
+
+
+class TestCommonStructure:
+    def test_returns_nonempty_string(self, scenarios):
+        text = instructions_for(scenarios, "call_02")
+        assert isinstance(text, str) and text.strip()
+
+    def test_includes_base_identity(self, scenarios):
+        text = instructions_for(scenarios, "call_02")
+        assert "Pivot Point Orthopaedics" in text
+
+    def test_includes_persona_and_goal(self, scenarios):
+        card = scenario_loader.get_scenario(scenarios, "call_02")
+        text = patient_brain.build_instructions(card, caller_number=CALLER)
+        assert card["persona"] in text
+        assert card["patient_goal"] in text
+
+    def test_includes_stop_condition(self, scenarios):
+        card = scenario_loader.get_scenario(scenarios, "call_02")
+        text = patient_brain.build_instructions(card, caller_number=CALLER)
+        assert card["stop_condition"] in text
+
+    def test_instructs_end_call_with_goodbye(self, scenarios):
+        text = instructions_for(scenarios, "call_02").lower()
+        assert "end_call" in text
+        assert "goodbye" in text or "bye" in text
+
+
+class TestCallerNumberSubstitution:
+    def test_placeholder_replaced_with_caller_number(self, scenarios):
+        text = instructions_for(scenarios, "call_02")
+        assert CALLER in text
+        assert "use configured caller number" not in text
+
+
+class TestEdgeCaseStaging:
+    def test_enabled_edge_case_renders_staged_rules(self, scenarios):
+        text = instructions_for(scenarios, "call_09")
+        assert "8 plus 9" in text
+        assert "pi" in text.lower()
+        # each rule should surface in the staged section
+        card = scenario_loader.get_scenario(scenarios, "call_09")
+        for rule in card["edge_case"]["rules"]:
+            assert rule in text
+
+    def test_enabled_marks_gradual_introduction(self, scenarios):
+        text = instructions_for(scenarios, "call_09").lower()
+        assert "gradual" in text or "only when" in text or "only if" in text
+
+    def test_disabled_edge_case_has_no_probe_section(self, scenarios):
+        text = instructions_for(scenarios, "call_02")
+        # call_02 has edge_case.enabled == False -> no staged probe rules
+        assert "straightforward" in text.lower()

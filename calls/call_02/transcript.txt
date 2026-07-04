@@ -1,0 +1,39 @@
+Call ID: call_02
+Scenario: Normal doctor appointment scheduling
+Persona: Calm adult patient with knee pain
+Duration: 03:02
+
+Assistant: Esta llamada puede ser grabada para propósitos de calidad y entrenamiento. Para Español, oprima el 2.
+Patient: Hi, I'd like to schedule an appointment. I've been having some knee pain for about a week now.
+Assistant: Thanks for calling Pivot Point orthopedics part of pretty good AI. How may I help you today?
+Patient: Actually, this is not Peter. My name is Sarah.
+Assistant: I see you're calling from the number we have on file. Am I speaking with the ear?
+Assistant: Could you please provide your full name and date of birth?
+Patient: Sure. My full name is Sarah Collins, and my date of birth is
+Assistant: Please tell me your first and last name along with your date of birth.
+Patient: My name is Sarah Collins, and my date of birth is August 12, 1985.
+Patient: Of course, my date of birth is August 12, 1985.
+Assistant: Thanks, Sarah. Can you please provide your date of birth?
+Assistant: Just to confirm, I have your name as Sarah Collins and your date of birth as August 12th, 1985. Is that correct? If so, could you please spell your first and last name for me?
+Patient: Yes, that's correct. My first name is spelled S-A-R-A-H, and my last name is C-O-L-L-I-N-S.
+Assistant: Could you please spell your first and last name for me?
+Patient: Sure. My first name: S-A-R-A-H, and my last name: C-O-L-L-I-N-S.
+Patient: Sure, it's S-A-R-A-H.
+Assistant: Thank you. Could you also spell your first name for me?
+Assistant: Would you like to use your phone number to look up your record? If so, please provide the number you have on file with us.
+Assistant: If you're not sure, I can confirm your name and date of birth again. Let me know what you prefer.
+Patient: I can give you my phone number. It’s +1-513-866-3293.
+Assistant: Please provide the phone number you have on file with us.
+Patient: Sure, my phone number on file is +1-513-866-3293.
+Patient: Yes, it's 513-866-3293.
+Assistant: Could you please provide the full 10-digit phone number you have on file with us?
+Assistant: I'll need the complete phone number including the area code. Could you please say the full number?
+Patient: Of course, the full number is 513-866-3293.
+Assistant: Go ahead with the full phone number when you're ready.
+Patient: Sure, the full phone number is +1-513-866-3293.
+Patient: Absolutely, the full number is 513-866-3293.
+Assistant: I need the entire phone number, including the area code, at all digits. For example, something like 513-866-3293. Could you provide the full number like that?
+Assistant: I have your phone number as 513-866-8888.
+Assistant: 3 2 9 3
+Patient: Yes, that's correct.
+Assistant: in your date of birth as August 12th, 1985. Is that correct?

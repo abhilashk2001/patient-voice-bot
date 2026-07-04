@@ -92,3 +92,28 @@ finalization) confirmed working live.
 - Patient name varies per call (invented "Michael Harris" here vs "Peter
   Reynolds" earlier). Fine for testing; could pin a name in hidden details for
   consistency. Low priority.
+
+## 2026-07-04 — Phase 06 artifact saving
+
+Each real call now auto-saves `calls/<call_id>/` with `transcript.txt` (header +
+both speakers), `scenario.json`, `metadata.json` (FR11), and `recording.mp3`
+(Twilio dual-channel, verified `JntStereo` = both sides). No ffmpeg needed —
+Twilio serves mp3 directly.
+
+### Bug found + fixed (ours): recording download 404
+First artifact run 404'd on the recording. Cause: `fetch_recording_sid` returned
+a SID while the recording was still *processing*, so the `.mp3` media 404'd, and
+our outer catch swallowed it (no retry). **Fix:** poll on recording
+`status == "completed"` and retry the download itself, up to ~30s. Verified by
+re-fetching the same call's recording (1.4 MB mp3, status completed) — no new
+call needed. Note: dual-channel recordings of full 3-min calls can take longer
+than the inline poll; Phase 08 adds a `--fetch-recordings` fallback to grab any
+stragglers after all calls complete.
+
+### More bug candidates observed (PGAI agent, for Phase 09)
+- **Verification loop (High), stronger evidence:** on this call the agent asked
+  for the phone number ~6 times and **misheard it as 513-866-8888** before
+  correcting. Combined with the earlier spelling loop, this is a clear, repeated
+  "loops/becomes confused" defect.
+- **Never scheduled (High):** 3-minute call ended at the cap still stuck in
+  verification — no appointment. Reinforces the call_02 "Cannot schedule" bug.

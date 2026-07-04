@@ -9,12 +9,16 @@ import asyncio
 import json
 import sys
 import time
+from datetime import datetime
+from pathlib import Path
 from typing import Any, Dict
 
+import artifacts
 import call_state
 import config as config_mod
 import patient_brain
 import realtime_bridge
+import recorder
 import telephony
 from config import MissingConfigError
 
@@ -152,6 +156,7 @@ async def run_call(scenario: Dict[str, Any], cfg: config_mod.Config, state: Dict
     _log(f"media server listening on :{cfg.media_server_port}")
     client = telephony.make_twilio_client(cfg.twilio_account_sid, cfg.twilio_auth_token)
     started = time.monotonic()
+    start_time_iso = datetime.now().isoformat(timespec="seconds")
     timed_out = False
     try:
         twiml = telephony.build_stream_twiml(cfg.public_media_stream_url)
@@ -175,7 +180,29 @@ async def run_call(scenario: Dict[str, Any], cfg: config_mod.Config, state: Dict
         server.close()
         await server.wait_closed()
     call_state.finalize_state(state, int(time.monotonic() - started), timed_out=timed_out)
+    _save_call_artifacts(scenario, state, cfg, client, state.get("call_sid"), start_time_iso)
     return state
+
+
+def _save_call_artifacts(scenario, state, cfg, client, call_sid, start_time_iso) -> None:
+    """Download the recording (best-effort) and write transcript/scenario/metadata."""
+    recording_file = None
+    try:
+        dest = Path(cfg.call_output_dir) / scenario["call_id"] / "recording.mp3"
+        if call_sid and recorder.save_recording(
+            client, call_sid, dest,
+            account_sid=cfg.twilio_account_sid, auth_token=cfg.twilio_auth_token,
+        ):
+            recording_file = "recording.mp3"
+            _log("recording saved")
+        else:
+            _log("recording not available yet (saved transcript + metadata only)")
+    except Exception as exc:  # pragma: no cover - best-effort
+        _log(f"recording save error: {exc!r}")
+    folder = artifacts.save_artifacts(
+        scenario, state, cfg.call_output_dir, start_time=start_time_iso, recording_file=recording_file
+    )
+    _log(f"artifacts saved -> {folder}/ ({len(state.get('turns', []))} turns)")
 
 
 def place_call(scenario: Dict[str, Any], cfg: config_mod.Config) -> Dict[str, Any]:

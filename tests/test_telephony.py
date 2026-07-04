@@ -81,6 +81,14 @@ class TestPlaceOutboundCall:
         assert client.calls.created["to"] == "+18054398008"
         assert client.calls.created["from_"] == "+13334445555"
 
+    def test_records_dual_channel_by_default(self):
+        client = FakeClient()
+        telephony.place_outbound_call(
+            client, to="+18054398008", from_="+13334445555", twiml="<Response/>"
+        )
+        assert client.calls.created["record"] is True
+        assert client.calls.created["recording_channels"] == "dual"
+
     def test_unauthorized_number_refused_before_dialing(self):
         client = FakeClient()
         with pytest.raises(UnauthorizedTargetError):

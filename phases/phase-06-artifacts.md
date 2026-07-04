@@ -1,6 +1,6 @@
 # Phase 06 — Artifact Saving
 
-**Status:** To Do
+**Status:** ✅ Done — 126 tests green + **live verified 2026-07-04**: calls/call_02/ produced with transcript.txt (both speakers), scenario.json, metadata.json (FR11), recording.mp3 (Twilio dual-channel, JntStereo). Fixed a recording-download 404 (poll on status==completed + retry). No ffmpeg needed. TODO Phase 08: `--fetch-recordings` fallback for stragglers.
 **Depends on:** Phase 05
 **Maps to PRD:** Phase 8 (FR9, FR10, FR11)
 

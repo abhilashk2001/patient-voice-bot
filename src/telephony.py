@@ -51,18 +51,23 @@ def parse_twilio_message(raw: str) -> Dict[str, Any]:
     return {"event": event, "stream_sid": stream_sid, "payload": payload, "raw": data}
 
 
-def place_outbound_call(client: Any, *, to: str, from_: str, twiml: str) -> str:
+def place_outbound_call(client: Any, *, to: str, from_: str, twiml: str, record: bool = True) -> str:
     """Place an outbound call — but only to the authorized number.
 
     ``client`` is any object exposing ``calls.create(**kwargs)`` (the Twilio
-    REST client, or a fake in tests). Returns the created call SID.
+    REST client, or a fake in tests). Records dual-channel by default so the
+    saved recording carries both sides (FR9). Returns the created call SID.
     """
     normalized = normalize_phone(to)
     if normalized != AUTHORIZED_TARGET:
         raise UnauthorizedTargetError(
             f"Refusing to dial {normalized!r}; only {AUTHORIZED_TARGET} is authorized."
         )
-    call = client.calls.create(to=normalized, from_=from_, twiml=twiml)
+    kwargs = {"to": normalized, "from_": from_, "twiml": twiml}
+    if record:
+        kwargs["record"] = True
+        kwargs["recording_channels"] = "dual"
+    call = client.calls.create(**kwargs)
     return call.sid
 
 

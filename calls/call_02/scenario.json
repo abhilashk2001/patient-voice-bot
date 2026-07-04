@@ -1,0 +1,37 @@
+{
+  "call_id": "call_02",
+  "scenario_name": "Normal doctor appointment scheduling",
+  "persona": "Calm adult patient with knee pain",
+  "tone": "cooperative, clear, patient",
+  "patient_goal": "Schedule a doctor visit for knee pain",
+  "medical_or_clinic_issue": "Knee pain for one week",
+  "hidden_details": {
+    "pain_duration": "one week",
+    "preferred_time": "Tuesday morning",
+    "insurance": "Blue Cross",
+    "phone_number": "use configured caller number"
+  },
+  "speaking_style": [
+    "Be straightforward",
+    "Answer questions clearly",
+    "Do not introduce edge cases"
+  ],
+  "edge_case": {
+    "type": "none",
+    "enabled": false,
+    "rules": []
+  },
+  "stop_condition": "Stop when appointment is confirmed, clear next steps are provided, or call reaches 3 minutes",
+  "expected_assistant_behavior": [
+    "Ask reason for visit",
+    "Ask relevant patient details",
+    "Offer appointment options",
+    "Confirm appointment or next steps"
+  ],
+  "bug_indicators": [
+    "Cannot schedule",
+    "Confirms wrong time",
+    "Skips key details",
+    "Ends without resolution"
+  ]
+}

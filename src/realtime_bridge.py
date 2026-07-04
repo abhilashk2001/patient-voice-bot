@@ -28,6 +28,37 @@ END_CALL_TOOL: Dict[str, Any] = {
 }
 
 
+# Distinct GA voices, cycled per scenario so personas don't all sound identical.
+VOICE_POOL = ["alloy", "ash", "ballad", "coral", "sage", "verse"]
+
+
+def _call_number(call_id: str) -> int:
+    digits = "".join(c for c in call_id if c.isdigit())
+    return int(digits) if digits else 0
+
+
+def voice_for_scenario(scenario: Dict[str, Any], default: str = "alloy") -> str:
+    """Pick a voice for a scenario: explicit override, else a stable pool choice.
+
+    Varying voices across the 10 calls makes each persona read as a distinct
+    real caller (a cheap realism win for the voice-quality gate).
+    """
+    override = scenario.get("realtime_voice")
+    if override:
+        return override
+    n = _call_number(scenario.get("call_id", ""))
+    return VOICE_POOL[(n - 1) % len(VOICE_POOL)] if n else default
+
+
+def session_kwargs_for_scenario(scenario: Dict[str, Any], cfg: Any) -> Dict[str, Any]:
+    """Derive build_session_update kwargs from a scenario card (+ config defaults)."""
+    return {
+        "voice": voice_for_scenario(scenario, getattr(cfg, "realtime_voice", "alloy")),
+        "silence_ms": int(scenario.get("vad_silence_ms", 600)),
+        "allow_barge_in": bool(scenario.get("allow_barge_in", False)),
+    }
+
+
 def build_session_update(
     instructions: str,
     *,
@@ -35,6 +66,7 @@ def build_session_update(
     input_format: str = "audio/pcmu",
     output_format: str = "audio/pcmu",
     silence_ms: int = 600,
+    allow_barge_in: bool = False,
     tools: Optional[List[Dict[str, Any]]] = None,
 ) -> Dict[str, Any]:
     """Build the GA ``session.update`` for the Realtime patient session.
@@ -58,6 +90,10 @@ def build_session_update(
                         "type": "server_vad",
                         "silence_duration_ms": silence_ms,
                         "create_response": True,
+                        # Polite by default: clinic speech interrupts the patient
+                        # so the bot never talks over the agent. Barge-in scenarios
+                        # flip this off so the patient keeps going.
+                        "interrupt_response": not allow_barge_in,
                     },
                 },
                 "output": {

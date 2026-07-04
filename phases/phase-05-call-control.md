@@ -1,6 +1,6 @@
 # Phase 05 — Turn-Taking & Call Control
 
-**Status:** To Do
+**Status:** ✅ Done — 109 tests green + **live verified 2026-07-04**: end_call fired cleanly ('call transferred to representative'), per-scenario voice applied (ash), polite barge-in default, outcome finalized. Also surfaced real agent bugs (verification loop, scheduling failure) for Phase 09.
 **Depends on:** Phase 04
 **Maps to PRD:** (new — FR7, FR8, stop conditions)
 

@@ -9,7 +9,6 @@ Break the build into 10 phases, each with its own PRD in this folder. Move a car
 Move each phase's line between the three sections below (edit the checkbox / section).
 
 ### 📋 To Do
-- [ ] **Phase 05** — Turn-Taking & Call Control → `phase-05-call-control.md`
 - [ ] **Phase 06** — Artifact Saving → `phase-06-artifacts.md`
 - [ ] **Phase 07** — Dev Test Calls & Iteration → `phase-07-dev-calls.md`
 - [ ] **Phase 08** — Final 10 Calls → `phase-08-final-calls.md`
@@ -24,6 +23,7 @@ _(none yet)_
 - [x] **Phase 02** — Scenario System → `phase-02-scenario-system.md` _(56 tests green; 10 cards + prompt-builder)_
 - [x] **Phase 03** — CLI & Dry-Run → `phase-03-cli-dry-run.md` _(65 tests green; --list/--scenario/--all/--dry-run)_
 - [x] **Phase 04** — Telephony + Realtime Bridge → `phase-04-realtime-bridge.md` _(95 tests green; LIVE VERIFIED — lucid bidirectional call)_
+- [x] **Phase 05** — Turn-Taking & Call Control → `phase-05-call-control.md` _(109 tests green; LIVE VERIFIED — end_call fired, varied voices, outcome captured)_
 
 ## Dependency map
 

@@ -8,8 +8,10 @@ Artifact capture (recording/transcript) is layered on in Phase 06.
 import asyncio
 import json
 import sys
+import time
 from typing import Any, Dict
 
+import call_state
 import config as config_mod
 import patient_brain
 import realtime_bridge
@@ -43,7 +45,13 @@ def validate_ready_for_call(cfg: config_mod.Config) -> None:
         )
 
 
-async def _bridge(twilio_ws, cfg: config_mod.Config, instructions: str, state: Dict[str, Any]) -> None:
+async def _bridge(
+    twilio_ws,
+    cfg: config_mod.Config,
+    instructions: str,
+    session_kwargs: Dict[str, Any],
+    state: Dict[str, Any],
+) -> None:
     """Bridge one Twilio media stream to a fresh OpenAI Realtime session."""
     import websockets  # lazy: keeps unit tests dependency-light
 
@@ -53,13 +61,12 @@ async def _bridge(twilio_ws, cfg: config_mod.Config, instructions: str, state: D
     _log(f"connecting to OpenAI Realtime ({cfg.openai_realtime_model})...")
     async with websockets.connect(url, additional_headers=headers) as oai:
         await oai.send(
-            json.dumps(
-                realtime_bridge.build_session_update(
-                    instructions, voice=cfg.realtime_voice, silence_ms=600
-                )
-            )
+            json.dumps(realtime_bridge.build_session_update(instructions, **session_kwargs))
         )
-        _log("Realtime session.update sent")
+        _log(
+            f"Realtime session.update sent (voice={session_kwargs.get('voice')}, "
+            f"barge_in={session_kwargs.get('allow_barge_in')})"
+        )
         stream_sid = {"value": None}
         counters = {"in": 0, "out": 0}
 
@@ -104,12 +111,12 @@ async def _bridge(twilio_ws, cfg: config_mod.Config, instructions: str, state: D
                     text = (event.get("transcript") or "").strip()
                     if text:
                         _log(f"ASSISTANT: {text}")
-                        state.setdefault("turns", []).append(("assistant", text))
+                        call_state.record_turn(state, "assistant", text)
                 elif etype == "response.output_audio_transcript.done":
                     text = (event.get("transcript") or "").strip()
                     if text:
                         _log(f"PATIENT:   {text}")
-                        state.setdefault("turns", []).append(("patient", text))
+                        call_state.record_turn(state, "patient", text)
 
         tasks = [asyncio.ensure_future(twilio_to_openai()), asyncio.ensure_future(openai_to_twilio())]
         try:
@@ -129,12 +136,13 @@ async def run_call(scenario: Dict[str, Any], cfg: config_mod.Config, state: Dict
     import websockets  # lazy
 
     instructions = patient_brain.build_instructions(scenario, caller_number=cfg.caller_phone_number)
+    session_kwargs = realtime_bridge.session_kwargs_for_scenario(scenario, cfg)
     done = asyncio.Event()
 
     async def handler(twilio_ws):
         _log("Twilio connected to media WebSocket")
         try:
-            await _bridge(twilio_ws, cfg, instructions, state)
+            await _bridge(twilio_ws, cfg, instructions, session_kwargs, state)
         except Exception as exc:  # surface bridge failures on the first call
             _log(f"bridge exception: {exc!r}")
         finally:
@@ -143,6 +151,8 @@ async def run_call(scenario: Dict[str, Any], cfg: config_mod.Config, state: Dict
     server = await websockets.serve(handler, "0.0.0.0", cfg.media_server_port)
     _log(f"media server listening on :{cfg.media_server_port}")
     client = telephony.make_twilio_client(cfg.twilio_account_sid, cfg.twilio_auth_token)
+    started = time.monotonic()
+    timed_out = False
     try:
         twiml = telephony.build_stream_twiml(cfg.public_media_stream_url)
         _log(f"placing call to {cfg.target_phone_number} from {cfg.twilio_phone_number}")
@@ -155,7 +165,7 @@ async def run_call(scenario: Dict[str, Any], cfg: config_mod.Config, state: Dict
             await asyncio.wait_for(done.wait(), timeout=cfg.max_call_seconds)
         except asyncio.TimeoutError:
             _log("max call duration reached")
-            state.setdefault("outcome", "Max call duration reached")
+            timed_out = True
         # Best-effort hangup (runaway backstop / clean end).
         try:
             client.calls(sid).update(status="completed")
@@ -164,12 +174,13 @@ async def run_call(scenario: Dict[str, Any], cfg: config_mod.Config, state: Dict
     finally:
         server.close()
         await server.wait_closed()
+    call_state.finalize_state(state, int(time.monotonic() - started), timed_out=timed_out)
     return state
 
 
 def place_call(scenario: Dict[str, Any], cfg: config_mod.Config) -> Dict[str, Any]:
     """Synchronous entry point: validate, then run the async call to completion."""
     validate_ready_for_call(cfg)
-    state: Dict[str, Any] = {"call_id": scenario["call_id"], "outcome": None, "ended_by_patient": False}
+    state = call_state.new_state(scenario)
     asyncio.run(run_call(scenario, cfg, state))
     return state

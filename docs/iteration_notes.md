@@ -71,3 +71,24 @@ audio was intelligible. Bidirectional, natural, scenario-appropriate.
 - **Total: comfortably under the challenge's ~$20 guidance.** Smoke testing so
   far (2 connected calls @ 90s): a few dollars at most. Verify actuals in the
   Twilio + OpenAI dashboards after the final 10 calls.
+
+## 2026-07-04 — Phase 05 validation call (call_02, 180s)
+
+**`end_call` fired cleanly** — the patient invoked the tool with reason
+`"call transferred to representative"`, ending the call via the tool path (not
+the 180s backstop). Per-scenario voice applied (`ash`). State/outcome captured.
+Phase 05 (turn-taking, barge-in default, end_call, per-scenario config, outcome
+finalization) confirmed working live.
+
+### Bug candidates observed (for BUG_REPORT.md in Phase 09)
+- **Verification loop / confusion (High):** the agent asked the caller to spell
+  "Michael Harris" ~4 times and re-requested date-of-birth immediately after
+  receiving it. Matches call_02 indicator "loops or becomes confused."
+- **Scheduling failure (High):** after looping on verification the agent gave up
+  ("I can't proceed further"), "transferred to a representative," which was only
+  a goodbye line — no appointment scheduled. Matches "Cannot schedule."
+
+### Minor
+- Patient name varies per call (invented "Michael Harris" here vs "Peter
+  Reynolds" earlier). Fine for testing; could pin a name in hidden details for
+  consistency. Low priority.

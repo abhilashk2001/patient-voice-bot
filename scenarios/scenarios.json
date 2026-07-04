@@ -279,19 +279,18 @@
   {
     "call_id": "call_08",
     "scenario_name": "Insurance and multi-intent request",
-    "persona": "Parent calling for child",
+    "persona": "Practical adult with a recent sports injury",
     "tone": "practical, slightly busy, polite",
     "patient_goal": "Ask about insurance, location, and sports injury support",
-    "medical_or_clinic_issue": "Child sports injury",
+    "medical_or_clinic_issue": "Ankle pain after playing soccer",
     "hidden_details": {
       "insurance": "Aetna",
-      "child_age": "15",
       "injury": "ankle pain after soccer",
       "phone_number": "use configured caller number"
     },
     "speaking_style": [
       "Ask multiple related questions in one turn",
-      "Sound like a parent trying to gather information",
+      "Sound like someone gathering information before booking",
       "Clarify if asked"
     ],
     "edge_case": {
@@ -309,13 +308,13 @@
       "Handle one question at a time",
       "Answer or route insurance question carefully",
       "Provide location if supported",
-      "Clarify child context if needed",
+      "Clarify injury details if needed",
       "Offer scheduling"
     ],
     "bug_indicators": [
       "Ignores part of request",
       "Gives unsupported insurance certainty",
-      "Fails to clarify child context",
+      "Fails to clarify injury context",
       "Gets confused by multiple intents"
     ]
   },

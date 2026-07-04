@@ -1,6 +1,6 @@
 # Phase 07 — Dev Test Calls & Iteration
 
-**Status:** To Do
+**Status:** ✅ Done — 2 dev calls (call_09, call_01) 2026-07-04. KEY FIX: fixed patient identity (real name+DOB from .env) so verification passes and scenarios reach intended behavior. call_09 captured the scope-control bug (agent answered 8+9=17, 23+58=81); call_01 baseline passed (correct hours/holiday/address, refused directions+weather). 129 tests green. OPEN: PII in deliverables (real name/DOB in transcripts+recordings) — decide before Phase 10 push.
 **Depends on:** Phase 06
 **Maps to PRD:** Phase 9
 

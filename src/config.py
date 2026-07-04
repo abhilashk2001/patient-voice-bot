@@ -72,6 +72,11 @@ class Config:
     public_media_stream_url: str = ""
     realtime_voice: str = "alloy"
     media_server_port: int = 8080
+    # The real registered PGAI patient identity used for verification on every
+    # call (PII — lives in .env, never committed). The persona/scenario varies,
+    # but the name/DOB stay constant so the clinic can verify the caller.
+    patient_name: str = ""
+    patient_dob: str = ""
 
 
 def load_config(env: Optional[Mapping[str, str]] = None) -> Config:
@@ -106,4 +111,6 @@ def load_config(env: Optional[Mapping[str, str]] = None) -> Config:
         public_media_stream_url=env.get("PUBLIC_MEDIA_STREAM_URL", ""),
         realtime_voice=env.get("REALTIME_VOICE", "alloy"),
         media_server_port=int(env.get("MEDIA_SERVER_PORT", "8080")),
+        patient_name=env.get("PATIENT_NAME", ""),
+        patient_dob=env.get("PATIENT_DOB", ""),
     )

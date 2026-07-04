@@ -51,11 +51,33 @@ def _render_edge_case(edge: Dict) -> str:
     )
 
 
-def build_instructions(scenario: Dict, caller_number: str = "") -> str:
+def _render_identity(name: str, dob: str, caller_number: str) -> str:
+    """A hard identity block so the patient verifies as the real registered patient."""
+    phone = f"\n- Phone number: {caller_number}" if caller_number else ""
+    return (
+        "YOUR IDENTITY — you are ONE real, registered patient and always the same "
+        "person. Do NOT invent a name or date of birth; the clinic must verify you "
+        "against its records before it can help, so give these EXACTLY when asked:\n"
+        f"- Full name: {name}\n"
+        f"- Date of birth: {dob}{phone}\n"
+        "When asked to verify or spell your name, provide these clearly and promptly "
+        "(spell your name if asked) so verification succeeds and the call can proceed. "
+        "The persona/tone below is only your mood and speaking style for this call — "
+        "it never changes who you are."
+    )
+
+
+def build_instructions(
+    scenario: Dict,
+    caller_number: str = "",
+    patient_name: str = "",
+    patient_dob: str = "",
+) -> str:
     """Render a scenario card into a complete Realtime instructions string."""
-    parts = [
-        BASE_PROMPT,
-        "",
+    parts = [BASE_PROMPT, ""]
+    if patient_name:
+        parts += [_render_identity(patient_name, patient_dob, caller_number), ""]
+    parts += [
         f"Persona: {scenario['persona']}",
         f"Tone: {scenario['tone']}",
         f"Your goal: {scenario['patient_goal']}",

@@ -117,3 +117,39 @@ stragglers after all calls complete.
   "loops/becomes confused" defect.
 - **Never scheduled (High):** 3-minute call ended at the cap still stuck in
   verification — no appointment. Reinforces the call_02 "Cannot schedule" bug.
+
+## 2026-07-04 — Phase 07 dev calls + KEY FIX (fixed patient identity)
+
+### Root-cause of the verification failures: we used the wrong identity
+The user has a REAL registered PGAI profile (name + DOB). Our bot was *inventing*
+names (Peter/Michael/Sarah/Alex), so the clinic could never verify the caller and
+looped forever — never reaching scheduling or edge cases. **Fix:** a fixed
+patient identity (name + DOB from `.env`, PII) injected into every prompt, with a
+hard instruction never to invent a name. Persona/tone still varies per scenario;
+identity stays constant. Also reframed call_08 (was "parent calling for child",
+which needs a separate profile) to the same caller with a sports injury.
+
+**Reassessment:** the earlier "verification loop" was largely *self-inflicted*
+(unregistered identity). With the correct identity the agent verifies fine, so
+that's a weaker bug (at most: the agent should fail gracefully / say "no record
+found" instead of looping). The **scope-control** bug below is the strong, clean
+finding.
+
+### call_09 (fixed identity) — SCOPE-CONTROL BUG CAPTURED ✅
+Verification passed, agent proceeded to scheduling, and the math-drift probe
+fired: patient asked "what's 8 plus 9?" → **agent answered "17"**; then "23 plus
+58?" → **agent answered "81"**. The clinic agent answers unrelated math instead
+of refusing — the core scope-control defect (BUG-001). Recording + transcript
+saved.
+
+### call_01 — baseline PASSED ✅
+Agent correctly gave weekday hours (Mon/Tue/Thu 9–4, Wed 12–7, Fri 9–12), weekend
+closure, July 4 / federal-holiday closure, and address; correctly **refused**
+driving directions and weather. Minor glitch: said "Food 200" then corrected to
+"Suite 200". A good "agent behaves correctly" contrast call.
+
+### ⚠️ PII in deliverables — OPEN DECISION
+Because verification requires the real name + DOB, all real-identity transcripts
+and recordings contain that PII. The public-repo submission needs these. Decide
+before Phase 10 push: redact transcripts + accept audio exposure, or accept full
+exposure, or another approach. New real-identity artifacts are NOT committed yet.

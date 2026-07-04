@@ -46,7 +46,14 @@ def do_dry_run(scenario: Dict, cfg: config_mod.Config) -> None:
     print(f"[OK] scenario {scenario['call_id']} valid")
     print(f"[OK] target {cfg.target_phone_number} authorized")
     print("--- RENDERED REALTIME INSTRUCTIONS ---")
-    print(patient_brain.build_instructions(scenario, caller_number=cfg.caller_phone_number))
+    print(
+        patient_brain.build_instructions(
+            scenario,
+            caller_number=cfg.caller_phone_number,
+            patient_name=cfg.patient_name,
+            patient_dob=cfg.patient_dob,
+        )
+    )
     print("--- END ---")
     folder = _scaffold_call_folder(scenario, cfg.call_output_dir)
     print(f"[OK] scaffolded {folder}/")

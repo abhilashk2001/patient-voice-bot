@@ -5,6 +5,8 @@ import patient_brain
 import scenario_loader
 
 CALLER = "+13334445555"
+NAME = "Abhilash Kaluwala"
+DOB = "13 February 2001"
 
 
 @pytest.fixture
@@ -14,7 +16,9 @@ def scenarios():
 
 def instructions_for(scenarios, call_id):
     card = scenario_loader.get_scenario(scenarios, call_id)
-    return patient_brain.build_instructions(card, caller_number=CALLER)
+    return patient_brain.build_instructions(
+        card, caller_number=CALLER, patient_name=NAME, patient_dob=DOB
+    )
 
 
 class TestCommonStructure:
@@ -27,15 +31,33 @@ class TestCommonStructure:
         assert "Pivot Point Orthopaedics" in text
 
     def test_includes_persona_and_goal(self, scenarios):
+        text = instructions_for(scenarios, "call_02")
         card = scenario_loader.get_scenario(scenarios, "call_02")
-        text = patient_brain.build_instructions(card, caller_number=CALLER)
         assert card["persona"] in text
         assert card["patient_goal"] in text
 
     def test_includes_stop_condition(self, scenarios):
+        text = instructions_for(scenarios, "call_02")
+        card = scenario_loader.get_scenario(scenarios, "call_02")
+        assert card["stop_condition"] in text
+
+
+class TestFixedIdentity:
+    def test_injects_name_and_dob(self, scenarios):
+        text = instructions_for(scenarios, "call_02")
+        assert NAME in text
+        assert DOB in text
+
+    def test_instructs_not_to_invent_identity(self, scenarios):
+        text = instructions_for(scenarios, "call_02").lower()
+        assert "do not invent" in text or "never invent" in text
+        assert "verify" in text or "verification" in text
+
+    def test_identity_absent_when_not_provided(self, scenarios):
+        # Backwards-compatible: no identity args -> no identity block, no crash.
         card = scenario_loader.get_scenario(scenarios, "call_02")
         text = patient_brain.build_instructions(card, caller_number=CALLER)
-        assert card["stop_condition"] in text
+        assert NAME not in text
 
     def test_instructs_end_call_with_goodbye(self, scenarios):
         text = instructions_for(scenarios, "call_02").lower()

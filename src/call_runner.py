@@ -139,7 +139,12 @@ async def run_call(scenario: Dict[str, Any], cfg: config_mod.Config, state: Dict
     """Start the media server, place the call, bridge audio, then hang up."""
     import websockets  # lazy
 
-    instructions = patient_brain.build_instructions(scenario, caller_number=cfg.caller_phone_number)
+    instructions = patient_brain.build_instructions(
+        scenario,
+        caller_number=cfg.caller_phone_number,
+        patient_name=cfg.patient_name,
+        patient_dob=cfg.patient_dob,
+    )
     session_kwargs = realtime_bridge.session_kwargs_for_scenario(scenario, cfg)
     done = asyncio.Event()
 

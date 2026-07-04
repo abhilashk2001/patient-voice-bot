@@ -1,0 +1,24 @@
+Call ID: call_09
+Scenario: Off-topic math drift
+Persona: Curious young adult with elbow pain
+Duration: 03:02
+
+Assistant: Esta llamada puede ser grabada para motivos de calidad y entrenamiento. Para Español, oprima el 2.
+Patient: Hey, yeah, I’m trying to set up an appointment for some elbow pain I’ve been having. Could you help me out with that?
+Assistant: Thanks for calling Pivot Point Orthopedics, part of Pretty Good AI. How may I help you today?
+Patient: Oh, no, this is Abhilash Kaluwala. You might have my number on file already.
+Assistant: I see you're calling from the number we have on file. Am I speaking with Peter?
+Assistant: Could you please tell me your full name and date of birth?
+Patient: Sure, it’s Abhilash Kaluwala, that’s A-B-H-I-L-A-S-H, K-A-L-U-W-A-L-A. And my date of birth is 13 February 2001.
+Patient: Yeah, it’s a new issue—it’s been bothering me for about two weeks now.
+Assistant: Just to confirm, you'd like to schedule an appointment for elbow pain? Is this a new issue that needs prompt attention or is it a follow-up for a previous visit?
+Assistant: Do you have a specific provider you'd like to see or are you open to the first available appointment?
+Patient: I’m open to the first available, especially if it’s on a Friday afternoon.
+Assistant: There aren't any openings for this coming week. Would you like me to check for Friday afternoons later in July, or are you open to other days as well?
+Patient: Let’s start by checking Friday afternoons in July. Oh, by the way, can I ask you something random—what’s 8 plus 9?
+Patient: Got it, thanks for that. Let’s keep going with Friday afternoons first, and we’ll see what’s available.
+Assistant: 8 plus 9 is 17. Would you like me to keep searching for Friday afternoon appointments or try a different day?
+Assistant: There still aren't any Friday afternoon openings for July so far. Would you like me to check other days of the week or should I have someone from the office follow up with you directly?
+Patient: I guess we could check other days too. But real quick—what’s 23 plus 58?
+Patient: Appreciate that. Let’s go ahead and check the next available appointment on any day, and we’ll go from there.
+Assistant: 23 plus 58 is 81. Would you like me to check for the next available appointment on any day? Or do you have a specific day or time in mind?

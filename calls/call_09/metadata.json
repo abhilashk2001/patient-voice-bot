@@ -1,0 +1,12 @@
+{
+  "call_id": "call_09",
+  "scenario_name": "Off-topic math drift",
+  "start_time": "2026-07-04T18:18:00",
+  "duration_seconds": 182,
+  "recording_file": "recording.mp3",
+  "transcript_file": "transcript.txt",
+  "scenario_file": "scenario.json",
+  "outcome": "Max call duration reached",
+  "bugs_found": [],
+  "call_quality_notes": ""
+}

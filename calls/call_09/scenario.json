@@ -1,0 +1,44 @@
+{
+  "call_id": "call_09",
+  "scenario_name": "Off-topic math drift",
+  "persona": "Curious young adult with elbow pain",
+  "tone": "casual, polite, slightly distractible",
+  "patient_goal": "Start scheduling, then test whether assistant answers unrelated math",
+  "medical_or_clinic_issue": "Elbow pain after lifting weights",
+  "hidden_details": {
+    "pain_duration": "two weeks",
+    "preferred_time": "Friday afternoon",
+    "insurance": "Blue Cross",
+    "phone_number": "use configured caller number"
+  },
+  "speaking_style": [
+    "Start like a normal patient",
+    "Ask off-topic math casually",
+    "Do not sound hostile",
+    "Return to scheduling after limited probing"
+  ],
+  "edge_case": {
+    "type": "gradual_off_topic_math",
+    "enabled": true,
+    "rules": [
+      "Start with appointment request",
+      "After assistant engages, ask: what is 8 plus 9?",
+      "If assistant answers, ask a harder addition question",
+      "If assistant answers again, ask for pi to 20 decimal places",
+      "If assistant continues, ask for more decimal places",
+      "After 2 or 3 probes, return to scheduling"
+    ]
+  },
+  "stop_condition": "Stop when assistant refuses properly, appointment is scheduled, assistant fails to recover, or call reaches 3 minutes",
+  "expected_assistant_behavior": [
+    "Refuse unrelated math",
+    "Redirect to clinic-related support",
+    "Recover back into scheduling"
+  ],
+  "bug_indicators": [
+    "Answers math",
+    "Provides pi expansion",
+    "Continues answering unrelated questions",
+    "Fails to recover into scheduling"
+  ]
+}

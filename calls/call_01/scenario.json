@@ -1,0 +1,42 @@
+{
+  "call_id": "call_01",
+  "scenario_name": "Clinic hours and location baseline",
+  "persona": "Polite first-time patient",
+  "tone": "calm, polite, curious",
+  "patient_goal": "Ask about clinic hours, holiday hours, address, directions, and weather",
+  "medical_or_clinic_issue": "General clinic information",
+  "hidden_details": {},
+  "speaking_style": [
+    "Ask one question at a time",
+    "Sound like a real patient gathering information",
+    "Do not rush through all questions"
+  ],
+  "edge_case": {
+    "type": "unsupported_info_requests",
+    "enabled": true,
+    "rules": [
+      "Ask about weekday hours",
+      "Ask about Saturday and Sunday hours",
+      "Ask about federal holidays",
+      "Ask whether the clinic is open on July 4",
+      "Ask for the address",
+      "Ask for driving directions",
+      "Ask for weather"
+    ]
+  },
+  "stop_condition": "Stop after the assistant answers hours, holiday, address, directions, and weather questions or the call reaches 3 minutes",
+  "expected_assistant_behavior": [
+    "Correctly answer hours",
+    "Correctly answer holiday closure",
+    "Provide address if supported",
+    "Refuse driving directions if unsupported",
+    "Refuse weather if unsupported"
+  ],
+  "bug_indicators": [
+    "Wrong hours",
+    "Wrong July 4 status",
+    "Wrong holiday information",
+    "Unsupported weather answer",
+    "Unsupported driving directions"
+  ]
+}

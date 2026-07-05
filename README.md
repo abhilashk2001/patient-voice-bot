@@ -1,150 +1,166 @@
 # Patient Voice Bot
 
-An automated voice bot that calls the Pretty Good AI test line, behaves like a
-realistic patient, holds a natural spoken conversation with the clinic's AI
-agent, records and transcribes both sides, and surfaces bugs in the agent's
-behavior.
+An automated voice bot that **phones a clinic's AI receptionist, acts like a real
+patient, and hunts for bugs.** It calls the Pretty Good AI test line, holds a
+natural spoken conversation, records and transcribes both sides, and produces a
+curated bug report — all driven by simple scenario cards and OpenAI's Realtime
+voice model bridged to a live phone call over Twilio.
 
-## Challenge objective
+> **The kind of bug it finds:** on one call the patient casually asked *"what's 8
+> plus 9?"* mid-scheduling — and the clinic agent answered **"8 plus 9 is 17"**,
+> then **"56 plus 39 is 95."** A clinic bot acting as a calculator is a real
+> scope-control gap. Full evidence: [`calls/call_09/`](calls/call_09) and
+> [`BUG_REPORT.md`](BUG_REPORT.md).
 
-Build a Python voice bot that calls **+1‑805‑439‑8008**, simulates realistic
-patient scenarios (scheduling, refills, questions, edge cases), records and
-transcribes the conversations, and documents bugs it finds — with a minimum of
-10 full calls. Voice-interaction quality is the top priority.
+---
 
-## System architecture (summary)
-
-Each call is driven by a saved **scenario card** (persona, goal, hidden details,
-speaking style, staged edge case, stop condition). Python controls the call flow
-and a hard authorized-number guard, while an **OpenAI Realtime** speech‑to‑speech
-session — bridged to the phone call over **Twilio Media Streams** — plays the
-patient live, handling turn-taking, transcription, and speech natively.
-
-```
-scenarios.json → main.py → call_runner.py
-   → Twilio places call to +18054398008
-   → Twilio Media Streams  ⇄  (our ws bridge)  ⇄  OpenAI Realtime (the "patient")
-   → recording.mp3 (Twilio dual-channel) + transcript.txt (Realtime events)
-   → metadata.json → BUG_REPORT.md
-```
-
-See [`ARCHITECTURE.md`](ARCHITECTURE.md) for the design and the key decisions
-(and [`FINAL_TECHNICAL_DOCUMENT.md`](FINAL_TECHNICAL_DOCUMENT.md) for the full
-decision log).
-
-## Free vs. paid strategy
-
-- **Paid (quality-critical):** OpenAI Realtime (the patient voice + conversation)
-  and Twilio (outbound telephony + dual-channel recording). Voice lucidity is the
-  rubric's gate, so these are worth paying for.
-- **Free:** ngrok (public tunnel), the whole scenario/state/transcript/metadata
-  layer (plain Python + files), and the bug-candidate analyzer. No database, no
-  frontend, no framework.
-
-## Telephony setup — a funded Twilio account is required ⚠️
-
-**Twilio *trial* accounts cannot complete this challenge.** Trial accounts may
-only dial *verified* numbers, and you cannot verify the PGAI test line (the code
-is sent to that number, which you don't control). Upgrade to a funded account
-(usage is well under $1; the minimum is a balance you draw down). The same
-verified-destination wall exists on Telnyx / SignalWire / Plivo free tiers, so
-there is no genuinely free path to call an arbitrary number.
-
-## Setup
+## Try it in 2 commands (no paid accounts needed)
 
 ```bash
-python3 -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt
-cp .env.example .env        # then fill in the values below
-
-# in a separate terminal, expose the media server:
-ngrok http 8080
-# copy the wss URL into PUBLIC_MEDIA_STREAM_URL in .env
+make setup     # creates a virtualenv and installs dependencies
+make demo      # renders a real scenario prompt + scaffolds a call folder — no call, no spend
 ```
 
-### Environment variables (`.env`)
-
-| Variable | What it is |
-|----------|------------|
-| `TARGET_PHONE_NUMBER` | Authorized assessment number — **must** be `+18054398008` (guarded). |
-| `CALLER_PHONE_NUMBER` / `TWILIO_PHONE_NUMBER` | Your Twilio number (the single number used for all calls). |
-| `TWILIO_ACCOUNT_SID` / `TWILIO_AUTH_TOKEN` | Twilio REST credentials. |
-| `PUBLIC_MEDIA_STREAM_URL` | ngrok `wss://…/media` URL (changes each ngrok restart). |
-| `OPENAI_API_KEY` / `OPENAI_REALTIME_MODEL` | OpenAI key with Realtime access; `gpt-realtime`. |
-| `REALTIME_VOICE` | Default voice (varied per scenario automatically). |
-| `PATIENT_NAME` / `PATIENT_DOB` | Your **registered** PGAI patient identity (used to verify every call). |
-| `PATIENT_PHONE_ON_FILE` | The phone number on file in your PGAI account (may differ in format from the Twilio number). |
-| `MEDIA_SERVER_PORT` | Local ws port ngrok forwards to (default 8080). |
-| `MAX_CALL_SECONDS` | Runaway backstop (default 180). |
-
-> Secrets live only in `.env` (gitignored). `.env.example` has placeholders.
-> **Note:** because the clinic verifies you by name + DOB, the real identity is
-> spoken on calls and appears in the committed transcripts/recordings.
-
-## Running it
+Also useful:
 
 ```bash
-# list scenarios
-python src/main.py --list
-
-# dry-run: render the prompt + run guards + scaffold folder, NO call, NO spend
-python src/main.py --scenario call_09 --dry-run
-
-# one real call
-python src/main.py --scenario call_09
-
-# all 10 scenarios, sequentially
-python src/main.py --all
-
-# download any recordings that finalized slowly, after a batch
-python src/main.py --fetch-recordings
+make test      # 139 unit tests
+make list      # the 10 patient scenarios
 ```
 
-## Where outputs go
+`make demo` runs the **dry-run** path: it validates the scenario, enforces the
+"only ever dial the authorized number" guard, and prints the exact instructions
+the AI patient would use — without placing a real call or spending anything. This
+lets a reviewer see the system work end-to-end with zero setup.
 
-Each call writes `calls/<call_id>/`:
+## Making real calls (needs your own accounts)
 
-- `recording.mp3` — Twilio dual-channel (both sides)
-- `transcript.txt` — both speakers, with a scenario header
-- `scenario.json` — the exact scenario card used
-- `metadata.json` — call id/SID, duration, outcome, bugs found
+Real calls need a **funded Twilio account** (trial accounts can't dial the test
+line — see below), an **OpenAI key with Realtime access**, and **ngrok**.
 
-## Reviewing results
+```bash
+cp .env.example .env      # then fill in the values (see the file's comments)
+ngrok http 8080           # copy the wss URL into PUBLIC_MEDIA_STREAM_URL
 
-- **Recordings:** open `calls/<id>/recording.mp3`.
-- **Transcripts:** read `calls/<id>/transcript.txt`.
-- **Bugs:** [`BUG_REPORT.md`](BUG_REPORT.md) (curated) and
-  [`CALL_SUMMARY.md`](CALL_SUMMARY.md) (per-call table). Candidates the analyzer
-  drafted are in `BUG_CANDIDATES.md`.
+python src/main.py --scenario call_09     # one real call
+python src/main.py --all                  # all 10, sequentially
+python src/main.py --fetch-recordings     # grab any recording that finalized slowly
+```
 
-## Cost estimate
+Each call writes everything to `calls/<call_id>/`:
 
-| Item | Estimate |
-|------|----------|
-| Twilio outbound (US) | ~$0.014/min → 10 calls ≈ **$0.42** |
-| Twilio number rental | ~$1.15/month |
-| OpenAI Realtime audio | dominant cost; ~$0.30–1.50 per 3-min call → 10 calls ≈ **$3–15** |
-| ngrok | free |
-| **Total** | under the challenge's ~$20 guidance |
+| File | What it is |
+|------|-----------|
+| `recording.mp3` | The call audio, both sides (Twilio dual-channel) |
+| `transcript.txt` | Both speakers, with a scenario header |
+| `scenario.json` | The exact scenario card used |
+| `metadata.json` | Call SID, duration, outcome, bugs found |
+
+> ⚠️ **Twilio trial accounts cannot complete this** — they only dial *verified*
+> numbers, and you can't verify the clinic's line. This is a hard prerequisite
+> (usage is well under $1). The same wall exists on every telephony free tier.
+
+## How it works
+
+```
+scenario card (persona, goal, edge case)
+   → patient_brain builds the prompt
+      → OpenAI Realtime plays the "patient" (speech-to-speech)
+         ⇄ Twilio Media Streams ⇄ the live phone call to the clinic
+      → recording.mp3 + transcript.txt + metadata.json
+   → analyze.py drafts bug candidates → curated into BUG_REPORT.md
+```
+
+Python owns the deterministic parts (a hard authorized-number guard, call
+timing, artifact saving); the OpenAI Realtime model owns the natural language and
+turn-taking. No database, no frontend, no framework. Details in
+[`ARCHITECTURE.md`](ARCHITECTURE.md).
+
+---
+
+## How I built it (design-first, AI-assisted)
+
+I optimized for **few bugs by construction**, not heroic debugging:
+
+1. **Interrogated the plan first.** Before writing code I had an AI "grill me" on
+   every design decision until the trade-offs were resolved — the voice pipeline,
+   turn-taking, how calls end, artifacts. The result is
+   [`FINAL_TECHNICAL_DOCUMENT.md`](FINAL_TECHNICAL_DOCUMENT.md): for each decision,
+   the original plan, why I changed it, and the pros/cons.
+2. **Wrote a technical doc + phased plan.** I broke the build into 10 phases, each
+   with its own mini-PRD and acceptance criteria (see [`phases/`](phases) and the
+   [Kanban board](phases/KANBAN.md)).
+3. **Built test-first (TDD), phase by phase.** Every phase: write failing tests →
+   implement → green. 139 tests total. The async audio bridge — which can't be
+   meaningfully mocked — was verified on **real phone calls** instead.
+4. **Iterated from real calls.** I ran dev calls, watched behavior, and fixed what
+   the transcripts revealed. The running log is
+   [`docs/iteration_notes.md`](docs/iteration_notes.md).
+
+### The two real problems I hit (and how AI helped fix them)
+
+Because of the design-first process the build was smooth, but two genuine issues
+came up — documented in [`docs/iteration_notes.md`](docs/iteration_notes.md):
+
+- **Verification kept looping (a design gap I caught by observing calls).** The
+  clinic could never verify my patient because the bot was *inventing* names,
+  while the test account has one real registered patient. Fix: inject a fixed
+  identity (name/DOB/on-file number from `.env`) and never invent one — only the
+  scenario/mood varies. This unblocked every scenario.
+- **OpenAI's Realtime API had gone GA and changed its request shape.** The bridge
+  connected but OpenAI rejected the session (`beta_api_shape_disabled`) because I
+  was sending the retired *beta* format. With AI I looked up the current GA shape,
+  updated the tests first, then the code (drop the beta header; nest audio
+  settings; use `audio/pcmu` so the phone's 8 kHz audio passes through untouched),
+  and confirmed the fix on a live call.
+
+---
+
+## What the bot found
+
+Ten calls covering scheduling, rescheduling, cancellation, refills, insurance,
+medical-advice boundaries, and deliberate edge cases. Curated findings in
+[`BUG_REPORT.md`](BUG_REPORT.md); per-call table in
+[`CALL_SUMMARY.md`](CALL_SUMMARY.md). Highlights:
+
+- **Scope-control failure (High)** — answers off-topic math while scheduling.
+- **Inconsistent enforcement** — answers math, ignores weather, refuses medical
+  advice: no consistent policy.
+- **Reschedule → silent new booking**, **cancellation dead-ends**, **persistent
+  name mis-recognition**, and scheduling that rarely yields an actual appointment.
+
+I also documented what the agent got **right** (correct clinic info, refusing
+medical advice, handling multi-intent questions) — an honest assessment, not just
+fault-finding. Candidates were AI-drafted by [`src/analyze.py`](src/analyze.py)
+([`BUG_CANDIDATES.md`](BUG_CANDIDATES.md)) and then curated by hand.
+
+## Repository layout
+
+```
+src/            # the bot (config guard, scenario loader, prompt builder, Twilio↔Realtime bridge,
+                #   recorder, transcript/metadata, bug analyzer)
+tests/          # 139 unit tests
+scenarios/      # the 10 scenario cards
+calls/          # the 10 completed calls (recording + transcript + scenario + metadata)
+phases/         # the phased build plan (planning evidence)
+docs/           # iteration notes + Loom links
+ARCHITECTURE.md, FINAL_TECHNICAL_DOCUMENT.md, BUG_REPORT.md, CALL_SUMMARY.md
+```
+
+## Cost
+
+Under the challenge's ~$20 guidance: Twilio ≈ **$0.42** for 10 calls (+~$1.15/mo
+number), OpenAI Realtime ≈ **$3–15**, ngrok free.
 
 ## Known limitations
 
-- **ngrok URL changes** on each restart — update `PUBLIC_MEDIA_STREAM_URL`.
-- **Transcript ordering:** occasionally a patient line prints just before the
-  assistant question it answers — the *audio* order is correct; only the text log
-  interleaves (the assistant's input-transcription event finalizes late).
-- **Recording timing:** dual-channel recordings can take longer than the inline
-  poll to finalize; `--fetch-recordings` grabs any stragglers.
-- **Scenario reach depends on the agent:** if the clinic agent stalls (e.g., no
-  availability), some edge-case probes may not fully play out.
+- ngrok's URL changes each restart — update `PUBLIC_MEDIA_STREAM_URL`.
+- Transcript lines can interleave slightly (the assistant's transcription event
+  finalizes late); the *audio* order is always correct.
+- Recordings occasionally finalize slower than the inline poll —
+  `--fetch-recordings` grabs any stragglers.
 
-## Testing
+## Submission
 
-```bash
-python -m pytest        # 139 tests (unit-level; the live bridge is verified on real calls)
-```
-
-## Loom & submission
-
-- Walkthrough + AI-debugging screen recording: see [`docs/loom_links.md`](docs/loom_links.md).
-- Caller number used for all test calls (E.164): **+15138663293**.
+Walkthrough + AI-debugging Looms: [`docs/loom_links.md`](docs/loom_links.md).
+Caller number used for all test calls (E.164): **+15138663293**.

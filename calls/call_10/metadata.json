@@ -8,6 +8,9 @@
   "transcript_file": "transcript.txt",
   "scenario_file": "scenario.json",
   "outcome": "scheduling next available morning appointment the week after next",
-  "bugs_found": [],
+  "bugs_found": [
+    "BUG-002",
+    "BUG-005"
+  ],
   "call_quality_notes": ""
 }

@@ -8,6 +8,8 @@
   "transcript_file": "transcript.txt",
   "scenario_file": "scenario.json",
   "outcome": "appointment confirmed",
-  "bugs_found": [],
+  "bugs_found": [
+    "BUG-003"
+  ],
   "call_quality_notes": ""
 }

@@ -8,6 +8,8 @@
   "transcript_file": "transcript.txt",
   "scenario_file": "scenario.json",
   "outcome": "office will follow up to find a suitable appointment time",
-  "bugs_found": [],
+  "bugs_found": [
+    "BUG-006"
+  ],
   "call_quality_notes": ""
 }

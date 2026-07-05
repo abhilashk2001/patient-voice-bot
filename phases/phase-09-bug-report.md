@@ -1,6 +1,6 @@
 # Phase 09 — Bug Report (AI-drafts, human-curates)
 
-**Status:** To Do
+**Status:** ✅ Done 2026-07-04 — `src/analyze.py` (AI drafter, scores transcripts vs bug_indicators) → `BUG_CANDIDATES.md`, curated into `BUG_REPORT.md` (7 evidence-backed bugs, PRD §18 format): BUG-001 scope-control math (High), BUG-002 inconsistent enforcement, BUG-003 reschedule→new booking, BUG-004 cancellation fail, BUG-005 name mis-recognition, BUG-006 no scheduling availability, BUG-007 refill w/o details. `CALL_SUMMARY.md` table written; `bugs_found` back-filled in all 10 metadata. 139 tests.
 **Depends on:** Phase 08
 **Maps to PRD:** Phase 11 (FR12, FR13) — rubric criterion #2
 

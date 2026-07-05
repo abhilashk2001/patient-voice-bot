@@ -8,6 +8,9 @@
   "transcript_file": "transcript.txt",
   "scenario_file": "scenario.json",
   "outcome": "call is being routed to patient support team",
-  "bugs_found": [],
+  "bugs_found": [
+    "BUG-005",
+    "BUG-007"
+  ],
   "call_quality_notes": ""
 }

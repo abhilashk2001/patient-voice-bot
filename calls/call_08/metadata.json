@@ -8,6 +8,8 @@
   "transcript_file": "transcript.txt",
   "scenario_file": "scenario.json",
   "outcome": "patient confirmed insurance upload and gathered all needed information",
-  "bugs_found": [],
+  "bugs_found": [
+    "BUG-005"
+  ],
   "call_quality_notes": ""
 }

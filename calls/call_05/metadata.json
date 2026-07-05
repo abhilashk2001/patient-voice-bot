@@ -8,6 +8,9 @@
   "transcript_file": "transcript.txt",
   "scenario_file": "scenario.json",
   "outcome": "Call ended without explicit stop condition",
-  "bugs_found": [],
+  "bugs_found": [
+    "BUG-004",
+    "BUG-005"
+  ],
   "call_quality_notes": ""
 }

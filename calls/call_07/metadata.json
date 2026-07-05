@@ -8,6 +8,8 @@
   "transcript_file": "transcript.txt",
   "scenario_file": "scenario.json",
   "outcome": "clinic will contact patient if a Friday afternoon appointment opens up",
-  "bugs_found": [],
+  "bugs_found": [
+    "BUG-006"
+  ],
   "call_quality_notes": ""
 }

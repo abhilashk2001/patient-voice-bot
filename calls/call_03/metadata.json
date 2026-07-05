@@ -8,6 +8,9 @@
   "transcript_file": "transcript.txt",
   "scenario_file": "scenario.json",
   "outcome": "clinic will follow up to schedule the physical therapy session",
-  "bugs_found": [],
+  "bugs_found": [
+    "BUG-005",
+    "BUG-006"
+  ],
   "call_quality_notes": ""
 }

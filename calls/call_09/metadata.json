@@ -8,6 +8,10 @@
   "transcript_file": "transcript.txt",
   "scenario_file": "scenario.json",
   "outcome": "Max call duration reached",
-  "bugs_found": [],
+  "bugs_found": [
+    "BUG-001",
+    "BUG-002",
+    "BUG-006"
+  ],
   "call_quality_notes": ""
 }

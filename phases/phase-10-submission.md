@@ -1,6 +1,6 @@
 # Phase 10 — Submission Packaging
 
-**Status:** To Do
+**Status:** 🚧 Docs done (README §20 complete, ARCHITECTURE §21 + deviations, docs/loom_links.md). Repo hygiene verified: .env untracked, no secrets in tracked files, 10 call folders, 139 tests. PENDING HUMAN: record 2 Looms (walkthrough + AI-debugging), create/push PUBLIC GitHub repo, fill submission form (repo link, Loom link, caller +15138663293 E.164).
 **Depends on:** Phase 09
 **Maps to PRD:** Phase 12 (§20, §21)
 

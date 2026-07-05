@@ -9,10 +9,10 @@ Break the build into 10 phases, each with its own PRD in this folder. Move a car
 Move each phase's line between the three sections below (edit the checkbox / section).
 
 ### 📋 To Do
-- [ ] **Phase 10** — Submission Packaging → `phase-10-submission.md`
+_(all engineering phases complete)_
 
 ### 🚧 In Progress
-_(none yet)_
+- [ ] **Phase 10** — Submission Packaging → `phase-10-submission.md` _(docs done; PENDING HUMAN: 2 Looms, public GitHub push, submission form)_
 
 ### ✅ Done
 - [x] **Phase 01** — Repo Setup & Config → `phase-01-repo-setup.md` _(36 tests green; FR1 guard verified)_

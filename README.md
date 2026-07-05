@@ -143,7 +143,7 @@ tests/          # 139 unit tests
 scenarios/      # the 10 scenario cards
 calls/          # the 10 completed calls (recording + transcript + scenario + metadata)
 phases/         # the phased build plan (planning evidence)
-docs/           # iteration notes + Loom links
+docs/           # iteration notes
 ARCHITECTURE.md, FINAL_TECHNICAL_DOCUMENT.md, BUG_REPORT.md, CALL_SUMMARY.md
 ```
 
@@ -162,5 +162,6 @@ number), OpenAI Realtime ≈ **$3–15**, ngrok free.
 
 ## Submission
 
-Walkthrough + AI-debugging Looms: [`docs/loom_links.md`](docs/loom_links.md).
 Caller number used for all test calls (E.164): **+15138663293**.
+Walkthrough and AI-assisted-debugging videos are provided separately in the
+submission form.

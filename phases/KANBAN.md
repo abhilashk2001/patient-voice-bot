@@ -12,7 +12,7 @@ Move each phase's line between the three sections below (edit the checkbox / sec
 _(all engineering phases complete)_
 
 ### 🚧 In Progress
-- [ ] **Phase 10** — Submission Packaging → `phase-10-submission.md` _(docs done; PENDING HUMAN: 2 Looms, public GitHub push, submission form)_
+- [ ] **Phase 10** — Submission Packaging → `phase-10-submission.md` _(README/setup/repo pushed PUBLIC → github.com/abhilashk2001/patient-voice-bot; PENDING HUMAN: 2 Looms + paste links, submission form)_
 
 ### ✅ Done
 - [x] **Phase 01** — Repo Setup & Config → `phase-01-repo-setup.md` _(36 tests green; FR1 guard verified)_

@@ -62,6 +62,8 @@ Each call writes everything to `calls/<call_id>/`:
 
 ## How it works
 
+![System architecture — configuration & scenarios → call execution (Twilio ⇄ OpenAI Realtime) → data persistence → analysis & reporting](docs/images/architecture.jpg)
+
 ```
 scenario card (persona, goal, edge case)
    → patient_brain builds the prompt

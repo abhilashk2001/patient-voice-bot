@@ -77,6 +77,10 @@ class Config:
     # but the name/DOB stay constant so the clinic can verify the caller.
     patient_name: str = ""
     patient_dob: str = ""
+    # The phone number ON FILE in the PGAI account (what the patient states to
+    # verify). May differ from the Twilio caller/from number. Falls back to the
+    # caller number if unset.
+    patient_phone_on_file: str = ""
 
 
 def load_config(env: Optional[Mapping[str, str]] = None) -> Config:
@@ -113,4 +117,5 @@ def load_config(env: Optional[Mapping[str, str]] = None) -> Config:
         media_server_port=int(env.get("MEDIA_SERVER_PORT", "8080")),
         patient_name=env.get("PATIENT_NAME", ""),
         patient_dob=env.get("PATIENT_DOB", ""),
+        patient_phone_on_file=normalize_phone(env.get("PATIENT_PHONE_ON_FILE", "")),
     )

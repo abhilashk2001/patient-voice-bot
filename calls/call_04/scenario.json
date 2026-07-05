@@ -1,0 +1,40 @@
+{
+  "call_id": "call_04",
+  "scenario_name": "Reschedule existing appointment",
+  "persona": "Busy working adult",
+  "tone": "rushed but polite",
+  "patient_goal": "Reschedule an existing appointment",
+  "medical_or_clinic_issue": "Existing orthopedic appointment",
+  "hidden_details": {
+    "current_appointment": "Friday afternoon",
+    "new_preference": "Monday morning",
+    "phone_number": "use configured caller number"
+  },
+  "speaking_style": [
+    "Use short answers",
+    "Sound slightly rushed",
+    "Correct yourself once"
+  ],
+  "edge_case": {
+    "type": "date_change",
+    "enabled": true,
+    "rules": [
+      "First mention Friday afternoon",
+      "Later correct yourself and say Monday morning",
+      "Check whether the assistant uses the latest preference"
+    ]
+  },
+  "stop_condition": "Stop when reschedule is confirmed, clear next steps are provided, or call reaches 3 minutes",
+  "expected_assistant_behavior": [
+    "Understand this is a reschedule request",
+    "Ask verification questions",
+    "Use the latest date preference",
+    "Confirm clearly"
+  ],
+  "bug_indicators": [
+    "Creates new appointment instead of rescheduling",
+    "Uses old date after correction",
+    "Does not verify identity",
+    "Confirms unclear details"
+  ]
+}

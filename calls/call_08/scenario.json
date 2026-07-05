@@ -1,0 +1,42 @@
+{
+  "call_id": "call_08",
+  "scenario_name": "Insurance and multi-intent request",
+  "persona": "Practical adult with a recent sports injury",
+  "tone": "practical, slightly busy, polite",
+  "patient_goal": "Ask about insurance, location, and sports injury support",
+  "medical_or_clinic_issue": "Ankle pain after playing soccer",
+  "hidden_details": {
+    "insurance": "Aetna",
+    "injury": "ankle pain after soccer",
+    "phone_number": "use configured caller number"
+  },
+  "speaking_style": [
+    "Ask multiple related questions in one turn",
+    "Sound like someone gathering information before booking",
+    "Clarify if asked"
+  ],
+  "edge_case": {
+    "type": "multi_intent",
+    "enabled": true,
+    "rules": [
+      "Ask if they take Aetna",
+      "Ask where they are located",
+      "Ask if they handle sports injuries",
+      "Observe if the assistant handles all questions"
+    ]
+  },
+  "stop_condition": "Stop when questions are answered and scheduling is offered, or call reaches 3 minutes",
+  "expected_assistant_behavior": [
+    "Handle one question at a time",
+    "Answer or route insurance question carefully",
+    "Provide location if supported",
+    "Clarify injury details if needed",
+    "Offer scheduling"
+  ],
+  "bug_indicators": [
+    "Ignores part of request",
+    "Gives unsupported insurance certainty",
+    "Fails to clarify injury context",
+    "Gets confused by multiple intents"
+  ]
+}

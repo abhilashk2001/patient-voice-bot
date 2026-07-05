@@ -1,20 +1,25 @@
 Call ID: call_01
 Scenario: Clinic hours and location baseline
 Persona: Polite first-time patient
-Duration: 02:28
+Duration: 02:43
 
 Assistant: Esta llamada puede ser grabada para motivos de calidad y entrenamiento. Para Español, oprima el 2.
-Patient: Hi, thank you. I’m just trying to get some general information about your clinic. Could you tell me your regular weekday hours?
-Assistant: Thanks for calling Pivot Point Orthopedics, part of Pretty Good AI. How may I help you today?
-Patient: Thanks for that. Could you also let me know what hours you're open on Saturday and Sunday?
-Assistant: Pivot Point Orthopedics is open Monday, Tuesday, and Thursday from 9 a.m. to 4 p.m., Wednesday from 12 p.m. to 7 p.m., and Friday from 9 a.m. to 12 p.m. Let me know if you need anything else about the clinic.
-Patient: Got it, thank you. And what about holidays—are you open on federal holidays, like today, July 4th?
-Assistant: We are closed on Saturdays and Sundays. If you need to schedule an appointment or have other questions, I can help with that.
-Patient: Thanks for clarifying. Could you give me your clinic’s address, so I know exactly where you’re located?
-Assistant: We are closed on major federal holidays, including July 4th. If you need to reach us around a holiday, you can always leave a message or call back during regular business hours.
-Patient: Thanks. Could you also help me with some driving directions? I'm coming from downtown Austin.
-Assistant: Our clinic is located at 1234 Recovery Way, Food 200, Austin. If you need more details or directions, just let me know.
-Assistant: I can't provide driving directions, but our clinic is in the Recovery Plaza Medical Building at 1234 Recovery Way, Suite 200, Austin. If you need more help, let me know.
-Patient: All right, thanks for that. One last thing—could you tell me what the weather is like there today?
-Assistant: I'm not able to provide current weather updates. For the latest weather in Austin, you might want to check a weather app or website. Is there anything else I can help with?
-Patient: I understand. That covers everything I needed. Thanks so much for your help. Have a great day.
+Assistant: Thanks for calling Pivot Point Orthopedics. Part of Pretty Good AI. How may I help you today?
+Patient: Hi, thank you. I’m just trying to find out what the clinic hours are. Could you let me know what time you’re open on weekdays?
+Assistant: Sure. Pivot Point Orthopedics is open Monday, Tuesday, and Thursday from 9 a.m. to 4 p.m., Wednesday from 12 p.m. to 7 p.m.
+Assistant: Friday from 9 a.m. to 12 p.m. Let me know if you need anything else.
+Patient: Thanks for that. Could you tell me if you're open on Saturdays or Sundays?
+Assistant: We're closed on Saturdays and Sundays. The clinic is only open Monday through Friday.
+Patient: Got it, that’s helpful. Could you let me know what your hours are on federal holidays, or if you close for those?
+Assistant: We're typically closed on federal holidays. If you need to visit around a holiday, it's best to call ahead to confirm our schedule, as hours may change.
+Patient: Thanks. Are you open on July 4th, or do you close that day as well?
+Assistant: We are closed on July 4th for the holiday. If you need to schedule around that time, just let me know.
+Patient: Thanks for letting me know. Could you also share the clinic’s address with me, so I know where you're located?
+Assistant: Our clinic is called Pivot Point Orthopedics. The address is 1234 Recovery Way, Suite 200, Austin. If you need more details or directions, just ask.
+Patient: Thanks, I appreciate it. Could you help me with some driving directions to get there, maybe from a main highway or landmark?
+Assistant: I'm not able to provide driving directions, but I can confirm the address is 1234 Recovery Way, Suite 200.
+Assistant: Austin, if you use a GPS or map app...
+Assistant: Just enter that address for the best route.
+Patient: I understand. One more thing, could you tell me what the weather is like around the clinic today?
+Assistant: I'm not able to provide current weather updates. For the latest weather new to Clegg, I recommend checking a weather app or website for Austin.
+Patient: Alright, that's all the info I needed. Thanks so much for your help. Take care.

@@ -1,0 +1,19 @@
+Call ID: call_08
+Scenario: Insurance and multi-intent request
+Persona: Practical adult with a recent sports injury
+Duration: 02:36
+
+Assistant: Esta llamada puede ser grabada para propósitos de calidad y entrenamiento. Para Español, oprima el 2.
+Assistant: Thanks for calling Pivot Point Orthopedics, part of Pretty Good AI. How may I help you today?
+Patient: Hi, I wanted to ask a few things before booking. Can you tell me if you take Aetna insurance, and also where exactly you're located? And do you handle sports injuries like ankle pain?
+Assistant: Pivot Point Orthopedics treats sports injuries, including ankle pain. We're located at 1234 Recovery Way, Suite 200, Austin. We accept most insurance plans and can help you check your Aetna coverage. Would you like to confirm your insurance details now?
+Patient: Sure, I’ve got Aetna insurance. Can you tell me if it’s in-network, and what I need to provide to confirm coverage?
+Patient: Yes, that’s me, Abhilash Kaluwala. I can spell that if you need.
+Assistant: I see you're calling from the number we have on file. Am I speaking with a pylosh?
+Assistant: Thanks, Avalash. Could you please provide your date of birth?
+Patient: Sure, my date of birth is February 13, 2001.
+Patient: That would be helpful, yes, please go ahead and send the text so I can upload the card.
+Assistant: You don't have any insurance on file with us yet. Would you like to give a text message at your number ending 3293 to upload photos of your Aetna insurance card?
+Assistant: I've sent the link. Please upload clear photos of the front and back of your Aetna card. Let me know if you have any questions while filling out the form.
+Patient: Got it, I’ll get that done. One more thing—after I upload, can you confirm if sports injuries, like my ankle pain, are typically covered?
+Patient: Great, that helps a lot. I'll go ahead and upload the photos now. Thanks for your help.

@@ -1,6 +1,6 @@
 # Phase 08 — Final 10 Calls
 
-**Status:** To Do
+**Status:** ✅ Done 2026-07-04 — 10 valid calls (call_01–10), all as single identity (Abhilash Kaluwala) after fixing the on-file phone format (`5138663293`, PATIENT_PHONE_ON_FILE). Verification passes on all. Each folder has recording.mp3 + transcript.txt + scenario.json + metadata.json. Added `--fetch-recordings` fallback. Bugs captured: scope-control (call_09), inconsistent refusal (09 vs 10), reschedule→new booking (call_04), cancellation failure (call_05).
 **Depends on:** Phase 07
 **Maps to PRD:** Phase 10 (NFR3)
 

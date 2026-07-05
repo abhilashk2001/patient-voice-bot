@@ -1,0 +1,25 @@
+Call ID: call_04
+Scenario: Reschedule existing appointment
+Persona: Busy working adult
+Duration: 02:28
+
+Patient: Hi there, I
+Assistant: Esta llamada puede ser grabada para motivos de calidad y entrenamiento. Para Español, oprima el 2.
+Patient: Hey, yeah, I need to reschedule my appointment. It's for Friday afternoon. Can we move it?
+Assistant: Thanks for calling Pivot Point Orthopedics, part of Pretty Good AI. How may I help you today?
+Assistant: I see you're calling from the number we have on file. Am I speaking with a by-lash?
+Patient: Yes, this is Abhilash. That's right.
+Assistant: Please provide your date of birth.
+Patient: Sure, it's 13 February 2001.
+Assistant: I do not see any upcoming appointments for you right now. Would you like to book a new appointment instead?
+Patient: I’m pretty sure I’ve got one set for Friday afternoon. Could you check again?
+Patient: Actually, I need to switch it to Monday morning now. Can we do that?
+Assistant: I checked again, but there are no upcoming appointments on file for you. Would you like to schedule a new appointment for Friday afternoon?
+Patient: It’s a follow-up for my ortho issue.
+Assistant: Let's get you set up for Monday morning. What is the reason for your visit? Is this a routine office visit, a follow-up, or something else?
+Assistant: I have two openings on Monday with Dr. Duvey-Hauser. One is at 1 p.m. and the other at 4 p.m. Would either of those work for your follow-up?
+Patient: I was hoping for Monday morning if possible. Anything earlier available?
+Assistant: There are no Monday morning openings, but I can check other days this week for morning slots. Would you like to look at Tuesday or another day?
+Patient: Let’s stick with Monday if we can. What’s the earliest on Monday you have?
+Patient: Alright, let's go with 1 p.m. on Monday. That works.
+Assistant: The earliest available slot on Monday is at 1 p.m. with Dr. Doogie Howser. Would you like to book that time?

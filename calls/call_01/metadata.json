@@ -1,12 +1,13 @@
 {
   "call_id": "call_01",
   "scenario_name": "Clinic hours and location baseline",
-  "start_time": "2026-07-04T18:22:31",
-  "duration_seconds": 148,
+  "call_sid": "CAe9b3ddad9dd13ec170be992ee1d8710e",
+  "start_time": "2026-07-04T20:56:49",
+  "duration_seconds": 163,
   "recording_file": "recording.mp3",
   "transcript_file": "transcript.txt",
   "scenario_file": "scenario.json",
-  "outcome": "all clinic information questions answered",
+  "outcome": "general clinic information gathered",
   "bugs_found": [],
   "call_quality_notes": ""
 }

@@ -58,3 +58,31 @@ class TestSaveRecording:
         )
         assert ok is False
         assert not dest.exists()
+
+
+class TestFetchMissingRecordings:
+    def _make_call(self, root, call_id, meta):
+        import utils
+        folder = root / call_id
+        folder.mkdir(parents=True)
+        utils.write_json(folder / "metadata.json", meta)
+        return folder
+
+    def test_downloads_only_missing(self, tmp_path):
+        # call_a: missing recording + has call_sid -> should download
+        self._make_call(tmp_path, "call_a", {"recording_file": None, "call_sid": "CA_A"})
+        # call_b: already has recording -> untouched
+        self._make_call(tmp_path, "call_b", {"recording_file": "recording.mp3", "call_sid": "CA_B"})
+        # call_c: missing but no call_sid -> skipped
+        self._make_call(tmp_path, "call_c", {"recording_file": None, "call_sid": None})
+
+        count = recorder.fetch_missing_recordings(
+            str(tmp_path), FakeClient(["RE1"]),
+            account_sid="AC123", auth_token="tok",
+            http_get=lambda u, a: b"MP3", retries=1, delay=0,
+        )
+        assert count == 1
+        assert (tmp_path / "call_a" / "recording.mp3").read_bytes() == b"MP3"
+        import utils
+        assert utils.read_json(tmp_path / "call_a" / "metadata.json")["recording_file"] == "recording.mp3"
+        assert not (tmp_path / "call_c" / "recording.mp3").exists()

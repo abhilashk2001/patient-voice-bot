@@ -9,7 +9,6 @@ Break the build into 10 phases, each with its own PRD in this folder. Move a car
 Move each phase's line between the three sections below (edit the checkbox / section).
 
 ### 📋 To Do
-- [ ] **Phase 08** — Final 10 Calls → `phase-08-final-calls.md`
 - [ ] **Phase 09** — Bug Report → `phase-09-bug-report.md`
 - [ ] **Phase 10** — Submission Packaging → `phase-10-submission.md`
 
@@ -24,6 +23,7 @@ _(none yet)_
 - [x] **Phase 05** — Turn-Taking & Call Control → `phase-05-call-control.md` _(109 tests green; LIVE VERIFIED — end_call fired, varied voices, outcome captured)_
 - [x] **Phase 06** — Artifact Saving → `phase-06-artifacts.md` _(126 tests green; LIVE VERIFIED — mp3 (dual-channel) + transcript + scenario + metadata)_
 - [x] **Phase 07** — Dev Test Calls & Iteration → `phase-07-dev-calls.md` _(129 tests green; KEY FIX: fixed patient identity → verification passes; call_09 captured scope-control bug, call_01 baseline passed)_
+- [x] **Phase 08** — Final 10 Calls → `phase-08-final-calls.md` _(132 tests; 10 valid calls, all verified as single identity + on-file-phone fix; --fetch-recordings added; 4 artifacts each)_
 
 ## Dependency map
 

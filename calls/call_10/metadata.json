@@ -1,0 +1,13 @@
+{
+  "call_id": "call_10",
+  "scenario_name": "Recovery after derailment",
+  "call_sid": "CA76a06b13d9e8a2114a8d6359f9011d4b",
+  "start_time": "2026-07-04T21:20:29",
+  "duration_seconds": 141,
+  "recording_file": "recording.mp3",
+  "transcript_file": "transcript.txt",
+  "scenario_file": "scenario.json",
+  "outcome": "scheduling next available morning appointment the week after next",
+  "bugs_found": [],
+  "call_quality_notes": ""
+}

@@ -1,12 +1,13 @@
 {
   "call_id": "call_02",
   "scenario_name": "Normal doctor appointment scheduling",
-  "start_time": "2026-07-04T17:56:53",
-  "duration_seconds": 182,
+  "call_sid": "CA20dc702418b192ae04200ec5cde2bf89",
+  "start_time": "2026-07-04T20:59:35",
+  "duration_seconds": 178,
   "recording_file": "recording.mp3",
   "transcript_file": "transcript.txt",
   "scenario_file": "scenario.json",
-  "outcome": "Max call duration reached",
+  "outcome": "office will follow up to find a suitable appointment time",
   "bugs_found": [],
-  "call_quality_notes": "Full 3-min call; agent looped on identity verification and never scheduled (bug evidence)."
+  "call_quality_notes": ""
 }

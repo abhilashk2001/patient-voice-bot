@@ -1,0 +1,13 @@
+{
+  "call_id": "call_06",
+  "scenario_name": "Medication refill request",
+  "call_sid": "CA982799e59f981d04e0a35fa6f56d7438",
+  "start_time": "2026-07-04T21:09:39",
+  "duration_seconds": 110,
+  "recording_file": "recording.mp3",
+  "transcript_file": "transcript.txt",
+  "scenario_file": "scenario.json",
+  "outcome": "call is being routed to patient support team",
+  "bugs_found": [],
+  "call_quality_notes": ""
+}

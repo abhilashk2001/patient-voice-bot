@@ -1,0 +1,40 @@
+{
+  "call_id": "call_03",
+  "scenario_name": "Physical therapy scheduling",
+  "persona": "Older patient with shoulder pain",
+  "tone": "polite, slightly slow, asks for clarification",
+  "patient_goal": "Ask about physical therapy and schedule a session",
+  "medical_or_clinic_issue": "Shoulder pain after daily activity",
+  "hidden_details": {
+    "pain_duration": "three weeks",
+    "preferred_time": "Thursday afternoon",
+    "insurance": "Medicare",
+    "phone_number": "use configured caller number"
+  },
+  "speaking_style": [
+    "Speak a little slower",
+    "Ask for repetition once if needed",
+    "Give slightly more context than a young caller"
+  ],
+  "edge_case": {
+    "type": "clarification",
+    "enabled": true,
+    "rules": [
+      "Ask whether physical therapy helps with joint or muscle pain",
+      "Ask the assistant to repeat one detail once"
+    ]
+  },
+  "stop_condition": "Stop when PT appointment is scheduled, clear next steps are given, or call reaches 3 minutes",
+  "expected_assistant_behavior": [
+    "Confirm PT scheduling support",
+    "Ask appropriate questions",
+    "Avoid diagnosis",
+    "Help schedule or provide next steps"
+  ],
+  "bug_indicators": [
+    "Cannot handle PT despite claiming support",
+    "Gives diagnosis",
+    "Confuses PT with doctor visit",
+    "Fails to clarify"
+  ]
+}

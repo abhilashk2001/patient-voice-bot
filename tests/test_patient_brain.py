@@ -72,6 +72,26 @@ class TestCallerNumberSubstitution:
         assert "use configured caller number" not in text
 
 
+class TestOnFilePhone:
+    def test_on_file_phone_takes_precedence(self, scenarios):
+        # When a registered on-file number is given, the patient states THAT,
+        # not the Twilio caller number, so verification matches the account.
+        on_file = "+15550001234"
+        card = scenario_loader.get_scenario(scenarios, "call_02")
+        text = patient_brain.build_instructions(
+            card, caller_number=CALLER, patient_name=NAME, patient_dob=DOB, patient_phone=on_file
+        )
+        assert on_file in text
+        assert CALLER not in text
+
+    def test_falls_back_to_caller_when_no_on_file(self, scenarios):
+        card = scenario_loader.get_scenario(scenarios, "call_02")
+        text = patient_brain.build_instructions(
+            card, caller_number=CALLER, patient_name=NAME, patient_dob=DOB
+        )
+        assert CALLER in text
+
+
 class TestEdgeCaseStaging:
     def test_enabled_edge_case_renders_staged_rules(self, scenarios):
         text = instructions_for(scenarios, "call_09")

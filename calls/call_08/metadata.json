@@ -1,0 +1,13 @@
+{
+  "call_id": "call_08",
+  "scenario_name": "Insurance and multi-intent request",
+  "call_sid": "CA54b0b9e2ba11816d424a26fa3178fc84",
+  "start_time": "2026-07-04T21:14:41",
+  "duration_seconds": 156,
+  "recording_file": "recording.mp3",
+  "transcript_file": "transcript.txt",
+  "scenario_file": "scenario.json",
+  "outcome": "patient confirmed insurance upload and gathered all needed information",
+  "bugs_found": [],
+  "call_quality_notes": ""
+}

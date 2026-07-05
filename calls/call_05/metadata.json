@@ -1,0 +1,13 @@
+{
+  "call_id": "call_05",
+  "scenario_name": "Cancel appointment",
+  "call_sid": "CA6d6a1ee8207a4aa0bb6a4d3be28c8347",
+  "start_time": "2026-07-04T21:08:21",
+  "duration_seconds": 73,
+  "recording_file": "recording.mp3",
+  "transcript_file": "transcript.txt",
+  "scenario_file": "scenario.json",
+  "outcome": "Call ended without explicit stop condition",
+  "bugs_found": [],
+  "call_quality_notes": ""
+}

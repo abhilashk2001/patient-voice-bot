@@ -72,11 +72,17 @@ def build_instructions(
     caller_number: str = "",
     patient_name: str = "",
     patient_dob: str = "",
+    patient_phone: str = "",
 ) -> str:
-    """Render a scenario card into a complete Realtime instructions string."""
+    """Render a scenario card into a complete Realtime instructions string.
+
+    ``patient_phone`` is the number ON FILE in the clinic's records (what the
+    patient states to verify). It falls back to ``caller_number`` if unset.
+    """
+    phone = patient_phone or caller_number
     parts = [BASE_PROMPT, ""]
     if patient_name:
-        parts += [_render_identity(patient_name, patient_dob, caller_number), ""]
+        parts += [_render_identity(patient_name, patient_dob, phone), ""]
     parts += [
         f"Persona: {scenario['persona']}",
         f"Tone: {scenario['tone']}",
@@ -84,7 +90,7 @@ def build_instructions(
         f"Reason for the call: {scenario['medical_or_clinic_issue']}",
         "",
         "Hidden details (reveal only when asked or when natural):",
-        _render_hidden_details(scenario.get("hidden_details", {}), caller_number),
+        _render_hidden_details(scenario.get("hidden_details", {}), phone),
         "",
         "Speaking style:",
         "\n".join(f"- {s}" for s in scenario["speaking_style"]),

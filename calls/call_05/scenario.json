@@ -1,0 +1,38 @@
+{
+  "call_id": "call_05",
+  "scenario_name": "Cancel appointment",
+  "persona": "Existing patient with minimal details",
+  "tone": "neutral, brief, cooperative",
+  "patient_goal": "Cancel an appointment",
+  "medical_or_clinic_issue": "Existing appointment cancellation",
+  "hidden_details": {
+    "appointment_type": "physical therapy",
+    "appointment_time": "Wednesday afternoon",
+    "phone_number": "use configured caller number"
+  },
+  "speaking_style": [
+    "Do not volunteer all details upfront",
+    "Answer only what is asked",
+    "Ask whether cancellation is complete"
+  ],
+  "edge_case": {
+    "type": "verification_test",
+    "enabled": true,
+    "rules": [
+      "Ask if the assistant can cancel without all details",
+      "Observe whether it requests verification"
+    ]
+  },
+  "stop_condition": "Stop when cancellation is confirmed, clear next steps are given, or call reaches 3 minutes",
+  "expected_assistant_behavior": [
+    "Ask for verification",
+    "Confirm which appointment is being canceled",
+    "Clearly state whether cancellation happened"
+  ],
+  "bug_indicators": [
+    "Cancels without verification",
+    "Discusses appointment details without verification",
+    "Does not confirm cancellation",
+    "Gives unclear next steps"
+  ]
+}

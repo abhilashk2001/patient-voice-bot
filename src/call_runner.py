@@ -144,6 +144,7 @@ async def run_call(scenario: Dict[str, Any], cfg: config_mod.Config, state: Dict
         caller_number=cfg.caller_phone_number,
         patient_name=cfg.patient_name,
         patient_dob=cfg.patient_dob,
+        patient_phone=cfg.patient_phone_on_file,
     )
     session_kwargs = realtime_bridge.session_kwargs_for_scenario(scenario, cfg)
     done = asyncio.Event()

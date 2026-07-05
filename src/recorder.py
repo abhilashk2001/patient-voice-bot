@@ -10,7 +10,7 @@ import urllib.request
 from pathlib import Path
 from typing import Any, Callable, Optional, Tuple
 
-from utils import ensure_dir
+from utils import ensure_dir, read_json, write_json
 
 PathLike = Any
 
@@ -73,3 +73,36 @@ def save_recording(
         if attempt < retries - 1:
             time.sleep(delay)
     return False
+
+
+def fetch_missing_recordings(
+    output_dir: str,
+    client: Any,
+    *,
+    account_sid: str,
+    auth_token: str,
+    http_get: Callable[[str, Tuple[str, str]], bytes] = _default_http_get,
+    retries: int = 6,
+    delay: float = 3.0,
+) -> int:
+    """Download recordings for any call folder missing one. Returns count saved.
+
+    Scans ``output_dir`` for call folders whose metadata.json has no
+    ``recording_file`` but does have a ``call_sid``; downloads and updates
+    metadata. Run after a batch of calls to grab slow-to-finalize recordings.
+    """
+    saved = 0
+    for meta_path in sorted(Path(output_dir).glob("*/metadata.json")):
+        meta = read_json(meta_path)
+        if meta.get("recording_file") or not meta.get("call_sid"):
+            continue
+        dest = meta_path.parent / "recording.mp3"
+        if save_recording(
+            client, meta["call_sid"], dest,
+            account_sid=account_sid, auth_token=auth_token,
+            http_get=http_get, retries=retries, delay=delay,
+        ):
+            meta["recording_file"] = "recording.mp3"
+            write_json(meta_path, meta)
+            saved += 1
+    return saved

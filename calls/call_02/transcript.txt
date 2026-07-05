@@ -1,39 +1,30 @@
 Call ID: call_02
 Scenario: Normal doctor appointment scheduling
 Persona: Calm adult patient with knee pain
-Duration: 03:02
+Duration: 02:58
 
-Assistant: Esta llamada puede ser grabada para propósitos de calidad y entrenamiento. Para Español, oprima el 2.
-Patient: Hi, I'd like to schedule an appointment. I've been having some knee pain for about a week now.
-Assistant: Thanks for calling Pivot Point orthopedics part of pretty good AI. How may I help you today?
-Patient: Actually, this is not Peter. My name is Sarah.
-Assistant: I see you're calling from the number we have on file. Am I speaking with the ear?
-Assistant: Could you please provide your full name and date of birth?
-Patient: Sure. My full name is Sarah Collins, and my date of birth is
-Assistant: Please tell me your first and last name along with your date of birth.
-Patient: My name is Sarah Collins, and my date of birth is August 12, 1985.
-Patient: Of course, my date of birth is August 12, 1985.
-Assistant: Thanks, Sarah. Can you please provide your date of birth?
-Assistant: Just to confirm, I have your name as Sarah Collins and your date of birth as August 12th, 1985. Is that correct? If so, could you please spell your first and last name for me?
-Patient: Yes, that's correct. My first name is spelled S-A-R-A-H, and my last name is C-O-L-L-I-N-S.
-Assistant: Could you please spell your first and last name for me?
-Patient: Sure. My first name: S-A-R-A-H, and my last name: C-O-L-L-I-N-S.
-Patient: Sure, it's S-A-R-A-H.
-Assistant: Thank you. Could you also spell your first name for me?
-Assistant: Would you like to use your phone number to look up your record? If so, please provide the number you have on file with us.
-Assistant: If you're not sure, I can confirm your name and date of birth again. Let me know what you prefer.
-Patient: I can give you my phone number. It’s +1-513-866-3293.
-Assistant: Please provide the phone number you have on file with us.
-Patient: Sure, my phone number on file is +1-513-866-3293.
-Patient: Yes, it's 513-866-3293.
-Assistant: Could you please provide the full 10-digit phone number you have on file with us?
-Assistant: I'll need the complete phone number including the area code. Could you please say the full number?
-Patient: Of course, the full number is 513-866-3293.
-Assistant: Go ahead with the full phone number when you're ready.
-Patient: Sure, the full phone number is +1-513-866-3293.
-Patient: Absolutely, the full number is 513-866-3293.
-Assistant: I need the entire phone number, including the area code, at all digits. For example, something like 513-866-3293. Could you provide the full number like that?
-Assistant: I have your phone number as 513-866-8888.
-Assistant: 3 2 9 3
-Patient: Yes, that's correct.
-Assistant: in your date of birth as August 12th, 1985. Is that correct?
+Assistant: Esta llamada puede ser grabada para motivos de calidad y entrenamiento. Para Español, oprima el 2.
+Patient: Hi, I need to schedule an appointment with a doctor. I’ve been having knee pain for about a week now.
+Assistant: Thanks for calling Pivot Point Orthopedics. Part of Pretty Good AI. How may I help you today?
+Assistant: I see you're calling from the number we have on file.
+Assistant: Am I speaking with Abhilash?
+Patient: Yes, this is Abhilash speaking.
+Assistant: Please provide your date of birth.
+Patient: Sure, my date of birth is 13 February 2001.
+Assistant: Thanks for confirming
+Assistant: Can you tell me the reason for your visit?
+Patient: It’s for knee pain that’s been going on about a week, so I’d say it’s a new concern I need checked out.
+Assistant: For example, is this for a routine checkup, a new patient consultation, a follow-up, or something urgent?
+Patient: Yes, that’s correct. I’m hoping to get in sometime soon.
+Assistant: Just to confirm, you'd like to schedule an appointment for knee pain, but started about a week ago. Is that correct?
+Assistant: Do you have a specific provider you'd like to see, or are you open to the next available doctor?
+Patient: I’m open to the next available doctor, whatever gets me in soonest.
+Assistant: Let me check the soonest available appointment for you. One moment.
+Assistant: There are no open appointments available through next Saturday. Would you like to look for openings later in July or do you have a specific date in mind?
+Patient: If possible, I’d like something on a Tuesday morning. That would be great.
+Patient: Yes, please check the following Tuesdays in July. That would be my preference.
+Assistant: There aren't any openings on Tuesday mornings next week. Would you like me to check later Tuesdays in July? Or would you prefer a different day or time?
+Patient: Let’s go ahead and check other days then, maybe a morning slot on a different day.
+Assistant: There are still no openings on any Tuesday mornings in July. Would you like me to check other days, or would you prefer to have someone from the office follow up with you directly?
+Assistant: I'm not seeing any available morning appointments on any day through mid-September. Would you like me to have someone from the office follow up with you directly to help find a time?
+Patient: Yes, that would be helpful. I’d appreciate a follow-up to find a suitable time.

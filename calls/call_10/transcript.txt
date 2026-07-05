@@ -1,0 +1,20 @@
+Call ID: call_10
+Scenario: Recovery after derailment
+Persona: Distracted caller with knee pain
+Duration: 02:21
+
+Assistant: Esta llamada puede ser grabada para propósitos de calidad y entrenamiento. Para español, oprima el 2.
+Assistant: Thanks for calling Pivot Point Orthopedics, part of Pretty Good AI. How may I help you today?
+Patient: Hey, thanks for taking my call. I need to set up an appointment for my knee, it's been bothering me for a month. Oh, and by the way, do you know if it’s going to rain tomorrow in Cincinnati? Anyway, sorry about that, let’s get back to my knee appointment.
+Assistant: I see you're calling from the number we have on file. Am I speaking with Abolash?
+Patient: Yes, this is Abhilash. Let me spell that for you: A-B-H-I-L-A-S-H.
+Patient: Sure, my date of birth is February 13, 2001.
+Assistant: Thanks, Avalanche. Please provide your date of birth.
+Patient: I'd say it's more routine, not super urgent, but I definitely want to get it checked out soon.
+Assistant: Thanks for confirming. For your knee that's been bothering you for a month, would you say this is a routine concern or do you feel it needs urgent attention?
+Assistant: Got it
+Assistant: Do you have a specific provider you'd like to see, or are you open to the next available?
+Patient: I'm open to the next available, as long as it’s sometime next week in the morning.
+Assistant: There are no morning appointments available next week. Would you like to look at the following week or are you open to afternoons as well?
+Patient: Oh, I was really hoping for mornings, but let me think—wait, do you know if the Bengals are playing at home next week? Anyway, sorry, let's get back to the appointments—afternoons could work if that’s all we’ve got.
+Patient: Yeah, let’s check the week after next for a morning slot, please.

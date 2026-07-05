@@ -1,0 +1,13 @@
+{
+  "call_id": "call_04",
+  "scenario_name": "Reschedule existing appointment",
+  "call_sid": "CA028f1eb833b57d04027c18665a432afb",
+  "start_time": "2026-07-04T21:05:50",
+  "duration_seconds": 148,
+  "recording_file": "recording.mp3",
+  "transcript_file": "transcript.txt",
+  "scenario_file": "scenario.json",
+  "outcome": "appointment confirmed",
+  "bugs_found": [],
+  "call_quality_notes": ""
+}

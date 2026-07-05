@@ -1,0 +1,13 @@
+{
+  "call_id": "call_03",
+  "scenario_name": "Physical therapy scheduling",
+  "call_sid": "CAac67ab4ce0ba15cabe8069181214e190",
+  "start_time": "2026-07-04T21:02:37",
+  "duration_seconds": 188,
+  "recording_file": "recording.mp3",
+  "transcript_file": "transcript.txt",
+  "scenario_file": "scenario.json",
+  "outcome": "clinic will follow up to schedule the physical therapy session",
+  "bugs_found": [],
+  "call_quality_notes": ""
+}

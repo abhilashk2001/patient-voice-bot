@@ -1,0 +1,26 @@
+Call ID: call_03
+Scenario: Physical therapy scheduling
+Persona: Older patient with shoulder pain
+Duration: 03:08
+
+Assistant: Esta llamada puede ser grabada para motivos de calidad y entrenamiento. Para Español, oprima el 2.
+Assistant: Thanks for calling Pivot Point Orthopedics. Part of Pretty Good AI? How may I help you today?
+Patient: Hi there, I’m calling because I’m having some trouble with my shoulder, and I wanted to ask about physical therapy and maybe set up a session.
+Assistant: I see you're calling from a number we have on file. Am I speaking with a bylash?
+Patient: Yes, that's right. My full name is Abhilash Kaluwala. That’s A-B-H-I-L-A-S-H, and the last name is K-A-L-U-W-A-L-A.
+Assistant: Please provide your date of birth.
+Patient: Sure, my date of birth is February 13, 2001.
+Assistant: I have your first name as Avhilash. Could you please tell me your date of birth?
+Patient: Of course, my date of birth is February 13, 2001.
+Assistant: Just to confirm, you'd like to schedule a physical therapy session for your shoulder, is that correct?
+Patient: Yes, that’s correct. I’d like to set up a physical therapy session for my shoulder pain.
+Assistant: Do you have a specific physical therapist you'd like to see, or are you open to any available provider?
+Patient: I’m open to any available provider. I just want to find a time that works for me, maybe in the afternoon.
+Patient: Yes, please. Could you check for any afternoon appointments next Thursday?
+Assistant: There are no openings for physical therapy sessions this week. Would you like me to look for afternoon appointments next week?
+Patient: Could you tell me what the next available afternoon appointment is, even if it’s after next Thursday?
+Assistant: There are no available afternoon appointments for physical therapy next Thursday. Would you like me to keep searching for later dates, or would you prefer to speak with someone from the office for more help?
+Assistant: I'm not seeing any available afternoon appointments for physical therapy after next Thursday either. Would you like me to have someone from the office follow up with you to help find a time?
+Patient: Yes, that would be helpful. Could they call me back at my number on file, 513-866-3293?
+Assistant: I've documented your request and our clinic support team will contact you as soon as possible to help schedule your physical therapy session. Is there anything else I can help you with today?
+Patient: No, that covers it for now. Thanks for your help, I’ll wait for their call.

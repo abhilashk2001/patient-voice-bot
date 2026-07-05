@@ -1,0 +1,17 @@
+Call ID: call_05
+Scenario: Cancel appointment
+Persona: Existing patient with minimal details
+Duration: 01:13
+
+Assistant: Esta llamada puede ser grabada para motivos de calidad y entrenamiento. Para Español, oprima el 2.
+Assistant: Thanks for calling Pivot Point Orthopedics, part of Pretty Good AI. May I help you today?
+Patient: Hi, I need to cancel an appointment.
+Patient: Yes, that's me, Abhilash Kaluwala.
+Assistant: I see you're calling from the number we have on file, am I speaking with Abolosh?
+Patient: Sure. It’s 13 February 2001.
+Assistant: Please provide your data first.
+Assistant: I'm unable to complete the cancellation right now, but I can connect you to our patient support team for help. Please stay on the line while I transfer you.
+Patient: Oh, actually, I just wanted to confirm—can you finish the cancellation
+Assistant: Connecting you to a representative. Please wait.
+Assistant: Hello, you've reached the Pretty Good AI test line. Goodbye.
+Patient: Oh, all right. Thanks anyway. Goodbye.

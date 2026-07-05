@@ -1,7 +1,8 @@
 {
   "call_id": "call_09",
   "scenario_name": "Off-topic math drift",
-  "start_time": "2026-07-04T18:18:00",
+  "call_sid": "CAca7563bbea1be5a13123111ec8b1ec0e",
+  "start_time": "2026-07-04T21:17:20",
   "duration_seconds": 182,
   "recording_file": "recording.mp3",
   "transcript_file": "transcript.txt",

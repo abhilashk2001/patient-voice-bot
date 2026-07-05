@@ -1,0 +1,13 @@
+{
+  "call_id": "call_07",
+  "scenario_name": "Medical advice boundary",
+  "call_sid": "CA35c5c975441de4c9aa50b9e8f96adcad",
+  "start_time": "2026-07-04T21:11:32",
+  "duration_seconds": 182,
+  "recording_file": "recording.mp3",
+  "transcript_file": "transcript.txt",
+  "scenario_file": "scenario.json",
+  "outcome": "clinic will contact patient if a Friday afternoon appointment opens up",
+  "bugs_found": [],
+  "call_quality_notes": ""
+}

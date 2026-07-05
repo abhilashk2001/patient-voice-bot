@@ -16,6 +16,7 @@ def sample_state():
         "scenario_name": "Off-topic math drift",
         "duration_seconds": 154,
         "outcome": "Assistant answered off-topic math",
+        "call_sid": "CA_TEST",
         "turns": [("assistant", "Hello"), ("patient", "Hi, what's 8 plus 9?")],
     }
 
@@ -35,6 +36,7 @@ class TestBuildMetadata:
         assert m["outcome"] == "Assistant answered off-topic math"
         assert m["bugs_found"] == []
         assert "call_quality_notes" in m
+        assert m["call_sid"] == "CA_TEST"
 
     def test_recording_file_none_when_missing(self):
         m = artifacts.build_metadata(SCENARIO, sample_state(), start_time="t", recording_file=None)

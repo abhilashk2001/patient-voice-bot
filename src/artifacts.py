@@ -21,6 +21,7 @@ def build_metadata(
     return {
         "call_id": scenario.get("call_id"),
         "scenario_name": scenario.get("scenario_name"),
+        "call_sid": state.get("call_sid"),
         "start_time": start_time,
         "duration_seconds": state.get("duration_seconds"),
         "recording_file": recording_file,

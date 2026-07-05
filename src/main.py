@@ -28,6 +28,11 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--scenario", metavar="CALL_ID", help="Run a single scenario")
     p.add_argument("--all", action="store_true", help="Run all scenarios")
     p.add_argument("--dry-run", action="store_true", help="No real call; render + scaffold only")
+    p.add_argument(
+        "--fetch-recordings",
+        action="store_true",
+        help="Download any recordings still missing from saved call folders",
+    )
     return p
 
 
@@ -52,6 +57,7 @@ def do_dry_run(scenario: Dict, cfg: config_mod.Config) -> None:
             caller_number=cfg.caller_phone_number,
             patient_name=cfg.patient_name,
             patient_dob=cfg.patient_dob,
+            patient_phone=cfg.patient_phone_on_file,
         )
     )
     print("--- END ---")
@@ -105,8 +111,8 @@ def main(argv: Optional[List[str]] = None, env: Optional[Mapping[str, str]] = No
             print(f"{call_id}  {name}")
         return 0
 
-    if not args.scenario and not args.all:
-        print("[ERROR] Nothing to do. Use --list, --scenario <id>, or --all.", file=sys.stderr)
+    if not args.scenario and not args.all and not args.fetch_recordings:
+        print("[ERROR] Nothing to do. Use --list, --scenario <id>, --all, or --fetch-recordings.", file=sys.stderr)
         return 2
 
     # Any run path enforces the authorized-number guard first.
@@ -115,6 +121,18 @@ def main(argv: Optional[List[str]] = None, env: Optional[Mapping[str, str]] = No
     except config_mod.ConfigError as e:
         print(f"[ERROR] {e}", file=sys.stderr)
         return 1
+
+    if args.fetch_recordings:
+        import recorder
+        import telephony
+
+        client = telephony.make_twilio_client(cfg.twilio_account_sid, cfg.twilio_auth_token)
+        count = recorder.fetch_missing_recordings(
+            cfg.call_output_dir, client,
+            account_sid=cfg.twilio_account_sid, auth_token=cfg.twilio_auth_token,
+        )
+        print(f"[OK] fetched {count} missing recording(s)")
+        return 0
 
     scenarios = scenario_loader.load_scenarios(cfg.scenarios_file)
     call_ids = [c["call_id"] for c in scenarios] if args.all else [args.scenario]

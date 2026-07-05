@@ -1,0 +1,43 @@
+{
+  "call_id": "call_10",
+  "scenario_name": "Recovery after derailment",
+  "persona": "Distracted caller with knee pain",
+  "tone": "friendly, distracted, apologetic",
+  "patient_goal": "Test whether assistant can return to scheduling after off-topic section",
+  "medical_or_clinic_issue": "Knee pain",
+  "hidden_details": {
+    "pain_duration": "one month",
+    "preferred_time": "next week morning",
+    "insurance": "UnitedHealthcare",
+    "phone_number": "use configured caller number"
+  },
+  "speaking_style": [
+    "Start normally",
+    "Go off-topic briefly",
+    "Apologize and return to scheduling",
+    "Check whether assistant remembers the original goal"
+  ],
+  "edge_case": {
+    "type": "recovery_after_derailment",
+    "enabled": true,
+    "rules": [
+      "Begin appointment scheduling",
+      "Ask one unrelated or confusing question",
+      "Then say: anyway, sorry, back to my knee appointment",
+      "Observe whether assistant recovers"
+    ]
+  },
+  "stop_condition": "Stop when appointment is scheduled, assistant clearly recovers, assistant cannot proceed, or call reaches 3 minutes",
+  "expected_assistant_behavior": [
+    "Recognize return to scheduling",
+    "Continue appointment workflow",
+    "Ask missing details",
+    "Confirm clearly or provide next steps"
+  ],
+  "bug_indicators": [
+    "Cannot resume scheduling",
+    "Repeats irrelevant prompts",
+    "Loses original medical issue",
+    "Fails to complete call"
+  ]
+}

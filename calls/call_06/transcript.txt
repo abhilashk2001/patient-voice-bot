@@ -1,0 +1,16 @@
+Call ID: call_06
+Scenario: Medication refill request
+Persona: Concerned patient requesting refill
+Duration: 01:50
+
+Assistant: This call may be recorded for quality and training purposes.
+Assistant: Thanks for calling Pivot Point Orthopedics, part of Pretty Good AI. How may I help you today?
+Patient: Hi, I’m calling because I need a refill for my medication. Is it possible to get that done today?
+Assistant: I see you're calling from a number we have on file. Am I speaking with a pylosh?
+Patient: Yes, this is Abhilash Kaluwala. That’s A-B-H-I-L-A-S-H, and the last name’s K-A-L-U-W-A-L-A.
+Patient: Sure, my date of birth is 13 February 2001.
+Assistant: Thank you, Avalash. Please provide your date of birth.
+Assistant: I don't see any medications on your chart that I can refill right now. If you'd like to speak with someone about this, just let me know.
+Patient: I’m a bit concerned because I got a prescription after my last visit. Could you check if there’s any way to refill it today?
+Patient: Yes, that would be helpful. Please connect me to someone who can assist with that.
+Assistant: I understand your concern. I'm unable to process a refill since there are no medications listed on your chart. Would you like me to connect you to our patient support team to help with this?
